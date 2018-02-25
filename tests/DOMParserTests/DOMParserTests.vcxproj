@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>E:\DOMParser\DOMParser\src\DOMParser;$(ProjectDir)..\..\googletest\googletest\include;$(ProjectDir)..\..\googletest\googletest;$(IncludePath)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <OutDir>$(SolutionDir)..\..\bin\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
@@ -80,7 +80,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>E:\DOMParser\DOMParser\src\DOMParser;$(ProjectDir)..\..\googletest\googletest\include;$(ProjectDir)..\..\googletest\googletest;$(IncludePath)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <OutDir>$(SolutionDir)..\..\bin\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
@@ -95,6 +95,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\src\DOMParser;$(ProjectDir)..\..\googletest\googletest\include;$(ProjectDir)..\..\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,6 +130,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\src\DOMParser;$(ProjectDir)..\..\googletest\googletest\include;$(ProjectDir)..\..\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -163,6 +165,8 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\DOMParser\DOMParser.cpp" />
+    <ClCompile Include="..\..\src\DOMParser\Teg.cpp" />
     <ClCompile Include="DOMParserTests.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +176,10 @@
     <ProjectReference Include="..\GTest\GTest.vcxproj">
       <Project>{74f3b28d-e2e6-49aa-965e-edfc43bf4bdd}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\DOMParser\DOMParser.h" />
+    <ClInclude Include="..\..\src\DOMParser\Teg.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

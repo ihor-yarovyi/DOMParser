@@ -22,12 +22,15 @@
     <ClCompile Include="DOMParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Teg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DOMParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IDOMParser.h">
+    <ClInclude Include="Teg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

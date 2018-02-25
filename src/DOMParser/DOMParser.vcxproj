@@ -141,10 +141,11 @@
   <ItemGroup>
     <ClCompile Include="DOMParser.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Teg.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DOMParser.h" />
-    <ClInclude Include="IDOMParser.h" />
+    <ClInclude Include="Teg.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

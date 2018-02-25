@@ -3,6 +3,7 @@
 *.suo
 *.sdf
 *.opensdf
+*.VC.db
 
 # Any user files
 *.user
