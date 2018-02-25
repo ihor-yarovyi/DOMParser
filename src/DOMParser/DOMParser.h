@@ -1,16 +1,18 @@
 #pragma once
 
-#include "IDOMParser.h"
 #include <string>
 
 class DOMParser 
 {
 public:
-	DOMParser();
-	virtual ~DOMParser();
+	DOMParser(const std::string&);
+	~DOMParser();
 
-	virtual std::string getTegName(const std::string&);
+	void parseFileData();
+	void parseTeg(const std::string&);
+	std::string getTegName(const std::string&);
 
 private:
+	std::string m_FileData;
 
 };
