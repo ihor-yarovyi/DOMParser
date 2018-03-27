@@ -2,4 +2,5 @@ cmake_minimum_required(VERSION 2.8)
 
 project(DOMParser)
 
-add_executable(DOMParser main.cpp Teg.cpp DOMParser.cpp)
+set(MAIN_SOURCE_FILES Teg.cpp Teg.h DOMParser.cpp DOMParser.h)
+add_executable(DOMParser main.cpp ${MAIN_SOURCE_FILES})
