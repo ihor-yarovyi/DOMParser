@@ -2,10 +2,14 @@ cmake_minimum_required(VERSION 2.8)
 
 project(DOMParserTests)
 
-find_package(Threads REQUIRED)
+include_directories(../src)
 
-include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR} ../src)
+set(GTEST_SRC ../googletest/googletest/src/gtest-all.cc)
+include_directories(../googletest/googletest ../googletest/googletest/include)
 
-add_executable(DOMParserTests DOMParserTests.cpp)
+add_library(googletest STATIC ${GTEST_SRC})
+target_link_libraries(googletest ${CMAKE_THREAD_LIBS_INIT})
 
-target_link_libraries(DOMParserTests gtest gtest_main Threads::Threads)
+add_executable(DOMParserTests ./DOMParserTests.cpp
+  ../src/Teg.cpp ../src/DOMParser.cpp)
+target_link_libraries(DOMParserTests googletest)
