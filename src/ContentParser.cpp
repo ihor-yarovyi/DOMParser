@@ -1,14 +1,14 @@
-#include "AttributeValueParser.h"
+#include "ContentParser.h"
 #include <iostream>
 
-AttibuteValueParser::AttibuteValueParser(const std::string& data)
+ContentParser::ContentParser(const std::string& data)
 : BaseParser(data),
-  m_RegexValue("\".*?\"|'.*?'")
+  m_RegexValue("<.+>\\s*(.+)\\s*<\\/.+>")
 {
 
 }
 
-std::vector<std::string> AttibuteValueParser::parse()
+std::vector<std::string> ContentParser::parse()
 {
     std::vector<std::string> result {};
 
