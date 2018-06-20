@@ -7,7 +7,9 @@
 class BaseParser
 {
 public:
-    BaseParser() = default;
+    BaseParser(const std::string& str)
+    : userData(str)
+    {}
     virtual ~BaseParser() = default;
 
     virtual std::vector<std::string> parse() = 0;

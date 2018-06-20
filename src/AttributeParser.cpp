@@ -2,9 +2,8 @@
 #include <iostream>
 
 AttributeParser::AttributeParser(const std::string& data)
-: BaseParser(),
-  userData(data),
-  m_RegexValue("\".*?\"|'.*?'")
+: BaseParser(data),
+  m_RegexValue("[\\w]+[\\s]*=")
 {
 
 }
@@ -14,7 +13,7 @@ std::vector<std::string> AttributeParser::parse()
     std::vector<std::string> result {};
     try
     {
-        std::sregex_iterator next(str.begin(), str.end(), m_regValue);
+        std::sregex_iterator next(userData.begin(), userData.end(), m_RegexValue);
         std::sregex_iterator end;
         while (next != end)
         {
