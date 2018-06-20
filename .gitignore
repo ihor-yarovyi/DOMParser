@@ -7,9 +7,12 @@
 
 # Any user files
 *.user
+.idea
+.directory
 
 # Output files
 bin/
 obj/
 build/
+cmake-build-debug/
 
