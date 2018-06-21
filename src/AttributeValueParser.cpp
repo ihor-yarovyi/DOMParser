@@ -3,7 +3,7 @@
 
 AttibuteValueParser::AttibuteValueParser(const std::string& data)
 : BaseParser(data),
-  m_RegexValue("\".*?\"|'.*?'")
+  m_RegexValue("\"(.*?)\"|'(.*?)'|=\\s*(\\d+)")
 {
 
 }
@@ -17,9 +17,27 @@ std::vector<std::string> AttibuteValueParser::parse()
         std::sregex_iterator next(userData.begin(), userData.end(), m_RegexValue);
         std::sregex_iterator end;
 
+        std::smatch sm;
+
         while (next != end)
         {
-            result.push_back(std::smatch(*next).str());
+            sm = *next;
+
+            if (sm.str().find_first_of("'") != std::string::npos)
+            {
+                result.emplace_back(sm[2].str());
+                ++next;
+                continue;
+            }
+
+            if (sm.str().find_first_of("=") != std::string::npos)
+            {
+                result.emplace_back(sm[3].str());
+                ++next;
+                continue;
+            }
+
+            result.push_back(sm[1].str());
             ++next;
         }
     }
