@@ -46,6 +46,33 @@ TEST(ParserNameTeg, InvalidCase2)
     EXPECT_TRUE(result.empty());
 }
 
+TEST(ParserAttribute, ValidCase)
+{
+    std::string inputData("<body><div class=\"name\" with ='2'>Content</div><i>str</i><b size = \"2\">str2</b></body>");
+    std::shared_ptr<BaseParser> ptr = std::make_shared<AttributeParser>(inputData);
+    std::vector<std::string> expectResult;
+
+    expectResult.emplace_back("class=");
+    expectResult.emplace_back("with =");
+    expectResult.emplace_back("size =");
+
+    std::vector<std::string> result = ptr->parse();
+
+    EXPECT_EQ(expectResult.size(), result.size());
+    EXPECT_EQ(expectResult[0], result[0]);
+    EXPECT_EQ(expectResult[1], result[1]);
+    EXPECT_EQ(expectResult[2], result[2]);
+}
+
+TEST(ParserAttribute, InvalidCase)
+{
+    std::string inputData("<div class\"name\" with ~'2'>/div>");
+    std::shared_ptr<BaseParser> ptr = std::make_shared<AttributeParser>(inputData);
+
+    std::vector<std::string> result = ptr->parse();
+
+    EXPECT_TRUE(result.empty());
+}
 
 int main(int argc, char** argv)
 {
