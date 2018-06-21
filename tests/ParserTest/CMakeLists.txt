@@ -12,5 +12,8 @@ add_library(googletest STATIC ${GTEST_SRC})
 target_link_libraries(googletest ${CMAKE_THREAD_LIBS_INIT})
 
 add_executable(ParserTest ./ParserTest.cpp
-  ../../src/TegNameParser.cpp)
+        ../../src/TegNameParser.cpp
+        ../../src/AttributeParser.cpp
+        ../../src/AttributeValueParser.cpp
+        ../../src/ContentParser.cpp)
 target_link_libraries(ParserTest googletest)
