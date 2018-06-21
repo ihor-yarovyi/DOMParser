@@ -3,7 +3,7 @@
 
 ContentParser::ContentParser(const std::string& data)
 : BaseParser(data),
-  m_RegexValue("<.+>\\s*(.+)\\s*<\\/.+>")
+  m_RegexValue("<(\\w[\\w.-]*)[^>]*>\\s*([\\w\\W]*?)\\s*<\\/\\1>")
 {
 
 }
