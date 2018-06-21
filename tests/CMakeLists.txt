@@ -7,6 +7,7 @@ include_directories(../src)
 set(GTEST_SRC ../googletest/googletest/src/gtest-all.cc)
 include_directories(../googletest/googletest ../googletest/googletest/include)
 
+find_package(Threads)
 add_library(googletest STATIC ${GTEST_SRC})
 target_link_libraries(googletest ${CMAKE_THREAD_LIBS_INIT})
 
