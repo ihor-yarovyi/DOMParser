@@ -3,7 +3,7 @@
 
 TegNameParser::TegNameParser(const std::string& data)
 : BaseParser(data),
-  m_RegexValue("<(\\w+)")
+  m_RegexValue("<(\\w+)\\s*\\w*>")
 {
 
 }
