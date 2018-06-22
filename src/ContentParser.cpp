@@ -17,9 +17,11 @@ std::vector<std::string> ContentParser::parse()
         std::sregex_iterator next(userData.begin(), userData.end(), m_RegexValue);
         std::sregex_iterator end;
 
+        std::smatch sm;
         while (next != end)
         {
-            result.push_back(std::smatch(*next).str());
+            sm = *next;
+            result.push_back(sm[2].str());
             ++next;
         }
     }
