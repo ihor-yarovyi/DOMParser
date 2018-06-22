@@ -3,6 +3,7 @@
 #include "TegNameParser.h"
 #include "AttributeParser.h"
 #include "AttributeValueParser.h"
+#include "ContentParser.h"
 
 #include <memory>
 
@@ -105,6 +106,50 @@ TEST(ParseAttributeValue, InvalidCase)
 
     EXPECT_EQ(result[0], "");
     EXPECT_EQ(result.size(), 1);
+}
+
+TEST(ContentParser, ValidCase)
+{
+    std::string inputData("<html><head><Title>Caption</Title></head></html>");
+    std::shared_ptr<BaseParser> ptr = std::make_shared<ContentParser>(inputData);
+
+    std::vector<std::string> result = ptr->parse();
+
+    EXPECT_EQ(result.size(), 1);
+    EXPECT_EQ(result[0], "<head><Title>Caption</Title></head>");
+}
+
+TEST(ContentParser, InvalidCase)
+{
+    std::string inputData("<html></html>");
+    std::shared_ptr<BaseParser> ptr = std::make_shared<ContentParser>(inputData);
+
+    std::vector<std::string> result = ptr->parse();
+
+    EXPECT_EQ(result.size(), 1);
+    EXPECT_EQ(result[0], "");
+}
+
+TEST(ContentParser, InvalidCase2)
+{
+    std::string inputData("html>Content</html>");
+    std::shared_ptr<BaseParser> ptr = std::make_shared<ContentParser>(inputData);
+    std::vector<std::string> result {};
+
+    EXPECT_NO_THROW(result = ptr->parse());
+    EXPECT_EQ(result.size(), 0);
+    EXPECT_TRUE(result.empty());
+}
+
+TEST(ContentParser, InvalidCase3)
+{
+    std::string inputData("<html>Content<html>");
+    std::shared_ptr<BaseParser> ptr = std::make_shared<ContentParser>(inputData);
+    std::vector<std::string> result {};
+
+    EXPECT_NO_THROW(result = ptr->parse());
+    EXPECT_EQ(result.size(), 0);
+    EXPECT_TRUE(result.empty());
 }
 
 int main(int argc, char** argv)
