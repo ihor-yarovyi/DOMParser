@@ -1,18 +1,22 @@
-#pragma once
+#ifndef DOMPARSER_DOMPARSER_H
+#define DOMPARSER_DOMPARSER_H
 
+#include "BaseParser.h"
+
+#include <vector>
 #include <string>
+#include <memory>
 
 class DOMParser 
 {
 public:
-	DOMParser(const std::string&);
-	~DOMParser();
+    DOMParser(BaseParser*);
+    ~DOMParser() = default;
 
-	void parseFileData();
-	void parseTeg(const std::string&);
-	std::string getTegName(const std::string&);
+    std::vector<std::string> parse();
 
 private:
-	std::string m_FileData;
-
+    std::shared_ptr<BaseParser> m_BaseParser;
 };
+
+#endif // DOMPARSER_DOMPARSER_H
