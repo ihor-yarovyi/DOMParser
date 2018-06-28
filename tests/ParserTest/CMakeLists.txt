@@ -15,5 +15,6 @@ add_executable(ParserTest ./ParserTest.cpp
         ../../src/TegNameParser.cpp
         ../../src/AttributeParser.cpp
         ../../src/AttributeValueParser.cpp
-        ../../src/ContentParser.cpp)
+        ../../src/ContentParser.cpp
+        ../../src/DOMParser.cpp)
 target_link_libraries(ParserTest googletest)

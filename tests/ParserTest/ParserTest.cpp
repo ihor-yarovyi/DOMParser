@@ -4,6 +4,7 @@
 #include "AttributeParser.h"
 #include "AttributeValueParser.h"
 #include "ContentParser.h"
+#include "DOMParser.h"
 
 #include <memory>
 
@@ -150,6 +151,23 @@ TEST(ContentParser, InvalidCase3)
     EXPECT_NO_THROW(result = ptr->parse());
     EXPECT_EQ(result.size(), 0);
     EXPECT_TRUE(result.empty());
+}
+
+TEST(DOMParser, TestCase)
+{
+    std::string inputData("<html><head><Title>Caption</Title></head></html>");
+    std::vector<std::string> expectResult;
+    expectResult.emplace_back("html");
+    expectResult.emplace_back("head");
+    expectResult.emplace_back("Title");
+
+    std::shared_ptr<DOMParser> ptr2(new DOMParser(new TegNameParser(inputData)));
+
+    std::vector<std::string> result(ptr2->parse());
+
+    EXPECT_EQ(result[0], expectResult[0]);
+    EXPECT_EQ(result[1], expectResult[1]);
+    EXPECT_EQ(result[2], expectResult[2]);
 }
 
 int main(int argc, char** argv)
