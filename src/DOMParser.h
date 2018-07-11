@@ -13,7 +13,7 @@ public:
     DOMParser(BaseParser*);
     ~DOMParser() = default;
 
-    std::vector<std::string> parse();
+    std::vector<DataParser> parse();
 
 private:
     std::shared_ptr<BaseParser> m_BaseParser;

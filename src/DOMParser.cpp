@@ -6,7 +6,7 @@ DOMParser::DOMParser(BaseParser* ptr)
 
 }
 
-std::vector<std::string> DOMParser::parse()
+std::vector<DataParser> DOMParser::parse()
 {
     return m_BaseParser->parse();
 }

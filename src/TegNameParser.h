@@ -10,7 +10,7 @@ public:
     TegNameParser(const std::string&);
     virtual ~TegNameParser() = default;
 
-    virtual std::vector<std::string> parse();
+    virtual std::vector<DataParser> parse();
 
 private:
     std::regex m_RegexValue;

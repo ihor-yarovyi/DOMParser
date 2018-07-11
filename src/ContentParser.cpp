@@ -3,14 +3,14 @@
 
 ContentParser::ContentParser(const std::string& data)
 : BaseParser(data),
-  m_RegexValue("<(\\w[\\w.-]*)[^>]*>\\s*([\\w\\W]*?)\\s*<\\/\\1>")
+  m_RegexValue("<([a-zA-Z_][\\w.-]*)([^>]*)>\\s*([\\w\\W]*?)\\s*<\\/\\1>")
 {
 
 }
 
-std::vector<std::string> ContentParser::parse()
+std::vector<DataParser> ContentParser::parse()
 {
-    std::vector<std::string> result {};
+    std::vector<DataParser> result {};
 
     try
     {
@@ -21,7 +21,9 @@ std::vector<std::string> ContentParser::parse()
         while (next != end)
         {
             sm = *next;
-            result.push_back(sm[2].str());
+            DataParser dataParser;
+            dataParser.setContentData(sm[1].str(), sm[2].str(), sm[3].str());
+            result.emplace_back(dataParser);
             ++next;
         }
     }

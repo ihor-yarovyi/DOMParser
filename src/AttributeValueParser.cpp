@@ -8,9 +8,9 @@ AttibuteValueParser::AttibuteValueParser(const std::string& data)
 
 }
 
-std::vector<std::string> AttibuteValueParser::parse()
+std::vector<DataParser> AttibuteValueParser::parse()
 {
-    std::vector<std::string> result {};
+    std::vector<DataParser> result {};
 
     try
     {
@@ -22,22 +22,25 @@ std::vector<std::string> AttibuteValueParser::parse()
         while (next != end)
         {
             sm = *next;
-
+            DataParser dataParser;
             if (sm.str().find_first_of("'") != std::string::npos)
             {
-                result.emplace_back(sm[2].str());
+                dataParser.setAttributeValue(sm[2].str());
+                result.emplace_back(dataParser);
                 ++next;
                 continue;
             }
 
             if (sm.str().find_first_of("=") != std::string::npos)
             {
-                result.emplace_back(sm[3].str());
+                dataParser.setAttributeValue(sm[3].str());
+                result.emplace_back(dataParser);
                 ++next;
                 continue;
             }
 
-            result.push_back(sm[1].str());
+            dataParser.setAttributeValue(sm[1].str());
+            result.push_back(dataParser);
             ++next;
         }
     }

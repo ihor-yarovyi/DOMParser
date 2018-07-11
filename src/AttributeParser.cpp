@@ -8,16 +8,18 @@ AttributeParser::AttributeParser(const std::string& data)
 
 }
 
-std::vector<std::string> AttributeParser::parse()
+std::vector<DataParser> AttributeParser::parse()
 {
-    std::vector<std::string> result {};
+    std::vector<DataParser> result {};
     try
     {
         std::sregex_iterator next(userData.begin(), userData.end(), m_RegexValue);
         std::sregex_iterator end;
         while (next != end)
         {
-            result.push_back(std::smatch(*next).str());
+            DataParser dataParser;
+            dataParser.setAttribute(std::smatch(*next).str());
+            result.emplace_back(dataParser);
             ++next;
         }
     }

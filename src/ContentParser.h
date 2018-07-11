@@ -10,7 +10,7 @@ public:
     ContentParser(const std::string&);
     virtual ~ContentParser() = default;
 
-    virtual std::vector<std::string> parse();
+    virtual std::vector<DataParser> parse();
 
 private:
     std::regex m_RegexValue;

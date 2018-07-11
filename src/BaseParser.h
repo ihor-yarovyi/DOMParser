@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 
+#include "DataParser.h"
+
 class BaseParser
 {
 public:
@@ -12,7 +14,12 @@ public:
     {}
     virtual ~BaseParser() = default;
 
-    virtual std::vector<std::string> parse() = 0;
+    virtual std::vector<DataParser> parse() = 0;
+
+    void setData(const std::string& str)
+    {
+        userData = str;
+    }
 
 protected:
     std::string userData;

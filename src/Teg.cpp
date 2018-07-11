@@ -1,14 +1,15 @@
 #include "Teg.h"
 
 Teg::Teg(const std::string& tegName)
-	: m_Name(tegName)
+	: m_Name(tegName),
+      m_Parent(nullptr)
 {
 
 }
 
 Teg::~Teg()
 {
-
+    m_Parent = nullptr;
 }
 
 void Teg::setTegName(const std::string& tegName)
@@ -31,32 +32,42 @@ std::string Teg::getContent() const
 	return m_Content;
 }
 
-void Teg::setParent(const std::string& parentTeg)
+void Teg::setParent(Teg* ptr)
 {
-	m_Parent = parentTeg;
+	m_Parent = ptr;
 }
 
-std::string Teg::getParent() const
+Teg* Teg::getParent() const
 {
 	return m_Parent;
 }
 
-void Teg::setChildren(const std::string& children)
+void Teg::setChildren(Teg* ptr)
 {
-	m_Childrens.push_back(children);
+	m_Childrens.emplace_back(ptr);
 }
 
-std::vector<std::string> Teg::getChildren() const
+std::vector<Teg*> Teg::getChildren() const
 {
 	return m_Childrens;
 }
 
-void Teg::setTegProperties(const std::string& attributeName, const std::string& attributeValue)
+void Teg::setAttributeTeg(const std::vector<std::string>& data)
 {
-	m_TegProperties.push_back({ attributeName, attributeValue });
+    m_AttributeTeg = data;
 }
 
-std::vector<std::pair<std::string, std::string>> Teg::getTegProperties() const
+std::vector<std::string> Teg::getAttributeTeg() const
 {
-	return m_TegProperties;
+    return m_AttributeTeg;
+}
+
+void Teg::setAttributeValueTeg(const std::vector<std::string>& data)
+{
+    m_AttributeValueTeg = data;
+}
+
+std::vector<std::string> Teg::getAttributeValueTeg() const
+{
+    return m_AttributeValueTeg;
 }

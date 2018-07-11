@@ -10,7 +10,7 @@ public:
     AttibuteValueParser(const std::string&);
     virtual ~AttibuteValueParser() = default;
 
-    virtual std::vector<std::string> parse();
+    virtual std::vector<DataParser> parse();
 
 private:
     std::regex m_RegexValue;

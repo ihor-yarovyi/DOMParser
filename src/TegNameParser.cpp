@@ -3,26 +3,22 @@
 
 TegNameParser::TegNameParser(const std::string& data)
 : BaseParser(data),
-  m_RegexValue("<(\\w+)\\s*\\w*>")
+  m_RegexValue("<([\\w]+)")
 {
 
 }
 
-std::vector<std::string> TegNameParser::parse()
+std::vector<DataParser> TegNameParser::parse()
 {
-    std::vector<std::string> result {};
+    std::vector<DataParser> result {};
 
     try
     {
-        std::sregex_iterator next(userData.begin(), userData.end(), m_RegexValue);
-        std::sregex_iterator end;
-
-        std::smatch sm;
-        while (next != end)
-        {
-            result.push_back(std::smatch(*next)[1].str());
-            ++next;
-        }
+        DataParser dataParser;
+        std::cmatch value;
+        std::regex_search(userData.data(), value, m_RegexValue);
+        dataParser.setTegName(value[1].str());
+        result.emplace_back(dataParser);
     }
     catch (const std::regex_error& e)
     {

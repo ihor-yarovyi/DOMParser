@@ -11,24 +11,28 @@ public:
 	void setTegName(const std::string&);
 	std::string getTegName() const;
 
-	void setParent(const std::string&);
-	std::string getParent() const;
+	void setParent(Teg*);
+	Teg* getParent() const;
 
-	void setChildren(const std::string&);
-	std::vector<std::string> getChildren() const;
+	void setChildren(Teg*);
+	std::vector<Teg*> getChildren() const;
 
-	void setTegProperties(const std::string&, const std::string&); // Attribute and his value
-	std::vector<std::pair<std::string, std::string>> getTegProperties() const;
+	void setAttributeTeg(const std::vector<std::string>&);
+	std::vector<std::string> getAttributeTeg() const;
+
+	void setAttributeValueTeg(const std::vector<std::string>&);
+	std::vector<std::string> getAttributeValueTeg() const;
 
 	void setContent(const std::string&);
 	std::string getContent() const;
 
 private:
 	std::string m_Name {};
-	std::string m_Parent {};
+	Teg* m_Parent;
 	std::string m_Content {};
-	std::vector<std::string> m_Childrens {};
-	std::vector<std::pair<std::string, std::string>> m_TegProperties {};
+	std::vector<Teg*> m_Childrens {};
+	std::vector<std::string> m_AttributeTeg {};
+	std::vector<std::string> m_AttributeValueTeg {};
 
 };
 
