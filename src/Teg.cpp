@@ -52,9 +52,9 @@ std::vector<Teg*> Teg::getChildren() const
 	return m_Childrens;
 }
 
-void Teg::setAttributeTeg(const std::vector<std::string>& data)
+void Teg::setAttributeTeg(const std::string& data)
 {
-    m_AttributeTeg = data;
+    m_AttributeTeg.emplace_back(data);
 }
 
 std::vector<std::string> Teg::getAttributeTeg() const
@@ -62,9 +62,9 @@ std::vector<std::string> Teg::getAttributeTeg() const
     return m_AttributeTeg;
 }
 
-void Teg::setAttributeValueTeg(const std::vector<std::string>& data)
+void Teg::setAttributeValueTeg(const std::string& data)
 {
-    m_AttributeValueTeg = data;
+    m_AttributeValueTeg.emplace_back(data);
 }
 
 std::vector<std::string> Teg::getAttributeValueTeg() const

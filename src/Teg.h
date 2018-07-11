@@ -17,10 +17,10 @@ public:
 	void setChildren(Teg*);
 	std::vector<Teg*> getChildren() const;
 
-	void setAttributeTeg(const std::vector<std::string>&);
+	void setAttributeTeg(const std::string&);
 	std::vector<std::string> getAttributeTeg() const;
 
-	void setAttributeValueTeg(const std::vector<std::string>&);
+	void setAttributeValueTeg(const std::string&);
 	std::vector<std::string> getAttributeValueTeg() const;
 
 	void setContent(const std::string&);
