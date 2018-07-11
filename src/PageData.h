@@ -11,6 +11,11 @@ public:
     ~PageData() = default;
 
     void add(const Teg&);
+    std::vector<Teg> getData() const;
+    bool empty() const;
+
+    Teg& first();
+    Teg& last();
 
 private:
     std::vector<Teg> m_Page;
