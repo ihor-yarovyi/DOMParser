@@ -1,13 +1,32 @@
 #include "gtest/gtest.h"
+/*
 #include "BaseParser.h"
 #include "TegNameParser.h"
 #include "AttributeParser.h"
 #include "AttributeValueParser.h"
 #include "ContentParser.h"
 #include "DOMParser.h"
+*/
+
+#include "domparser/BaseParser.h"
+#include "domparser/ContentParser.h"
+
 
 #include <memory>
 
+
+TEST(Text1, ValidCase)
+{
+    std::string inputData("<html><head><Title>Caption</Title></head></html>");
+    std::shared_ptr<BaseParser> ptr = std::make_shared<ContentParser>(inputData);
+    
+    auto result = ptr->parse();
+    
+    EXPECT_EQ("html", result[0].getTegName());
+}
+
+
+/*
 TEST(ParserNameTeg, ValidCase)
 {
     std::string inputData("<html><head><Title>Caption</Title></head></html>");
@@ -169,6 +188,7 @@ TEST(DOMParser, TestCase)
     EXPECT_EQ(result[1], expectResult[1]);
     EXPECT_EQ(result[2], expectResult[2]);
 }
+*/
 
 int main(int argc, char** argv)
 {
