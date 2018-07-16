@@ -12,16 +12,16 @@ public:
     void setContentData(const std::string&, const std::string&, const std::string&);
     void setAttribute(const std::string&);
     void setAttributeValue(const std::string&);
-    void setTegName(const std::string&);
+    void setTagName(const std::string &);
 
-    std::string getTegName() const;
+    std::string getTagName() const;
     std::string getNotParsingAttributes() const;
     std::string getContent() const;
     std::string getAttribute() const;
     std::string getAttributeValue() const;
 
 private:
-    std::string m_TegName {};
+    std::string m_TagName {};
     std::string m_NotParsingAttributes {};
     std::string m_Content {};
     std::string m_Attribute {};

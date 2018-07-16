@@ -2,7 +2,7 @@
 #define DOMPARSER_PAGEDATA_H
 
 #include <vector>
-#include "Teg.h"
+#include "Tag.h"
 
 class PageData
 {
@@ -10,15 +10,15 @@ public:
     PageData() = default;
     ~PageData() = default;
 
-    void add(const Teg&);
-    std::vector<Teg> getData() const;
+    void add(const Tag&);
+    std::vector<Tag> getData() const;
     bool empty() const;
 
-    Teg& first();
-    Teg& last();
+    Tag& first();
+    Tag& last();
 
 private:
-    std::vector<Teg> m_Page;
+    std::vector<Tag> m_Page;
 };
 
 

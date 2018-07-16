@@ -2,15 +2,15 @@
 
 void DataParser::setContentData(const std::string& tegName, const std::string& noParsingAttribute, const std::string& content)
 {
-    m_TegName = tegName;
+    m_TagName = tegName;
     m_NotParsingAttributes = noParsingAttribute;
     m_Content = content;
 }
 
 
-void DataParser::setTegName(const std::string& str)
+void DataParser::setTagName(const std::string &str)
 {
-    m_TegName = str;
+    m_TagName = str;
 }
 
 void DataParser::setAttribute(const std::string& str)
@@ -23,9 +23,9 @@ void DataParser::setAttributeValue(const std::string& str)
     m_AttributeValue = str;
 }
 
-std::string DataParser::getTegName() const
+std::string DataParser::getTagName() const
 {
-    return m_TegName;
+    return m_TagName;
 }
 
 std::string DataParser::getAttribute() const

@@ -1,14 +1,14 @@
-#include "TegNameParser.h"
+#include "TagNameParser.h"
 #include <iostream>
 
-TegNameParser::TegNameParser(const std::string& data)
+TagNameParser::TagNameParser(const std::string& data)
 : BaseParser(data),
   m_RegexValue("<([\\w]+)")
 {
 
 }
 
-std::vector<DataParser> TegNameParser::parse()
+std::vector<DataParser> TagNameParser::parse()
 {
     std::vector<DataParser> result {};
 
@@ -17,7 +17,7 @@ std::vector<DataParser> TegNameParser::parse()
         DataParser dataParser;
         std::cmatch value;
         std::regex_search(userData.data(), value, m_RegexValue);
-        dataParser.setTegName(value[1].str());
+        dataParser.setTagName(value[1].str());
         result.emplace_back(dataParser);
     }
     catch (const std::regex_error& e)

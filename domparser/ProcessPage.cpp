@@ -2,7 +2,7 @@
 #include "ContentParser.h"
 #include "AttributeParser.h"
 #include "AttributeValueParser.h"
-#include "TegNameParser.h"
+#include "TagNameParser.h"
 
 #include <fstream>
 
@@ -42,9 +42,9 @@ PageData ProcessPage::processHelper(const std::string& input, PageData& pageData
 
         for (const auto& i : tempVec)
         {
-            Teg teg;
-            teg.setTegName(i.getTegName());
-            teg.setContent(i.getContent());
+            Tag tag;
+            tag.setTagName(i.getTagName());
+            tag.setContent(i.getContent());
 
             m_BasePtr.reset();
             m_BasePtr = std::make_shared<AttributeParser>(i.getNotParsingAttributes());
@@ -53,7 +53,7 @@ PageData ProcessPage::processHelper(const std::string& input, PageData& pageData
 
             for (const auto& attributesIter : attributes)
             {
-                teg.setAttributeTeg(attributesIter.getAttribute());
+                tag.setAttributeTag(attributesIter.getAttribute());
             }
 
             m_BasePtr.reset();
@@ -63,16 +63,16 @@ PageData ProcessPage::processHelper(const std::string& input, PageData& pageData
 
             for (const auto& attributesValueIter : attributesValue)
             {
-                teg.setAttributeValueTeg(attributesValueIter.getAttributeValue());
+                tag.setAttributeValueTag(attributesValueIter.getAttributeValue());
             }
 
             if (!pageData.empty())
             {
-                pageData.last().setChildren(&teg);
-                teg.setParent(&pageData.last());
+                pageData.last().setChildren(&tag);
+                tag.setParent(&pageData.last());
             }
 
-            pageData.add(teg);
+            pageData.add(tag);
 
             processHelper(i.getContent(), pageData);
         }

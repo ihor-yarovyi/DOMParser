@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 /*
 #include "BaseParser.h"
-#include "TegNameParser.h"
+#include "TagNameParser.h"
 #include "AttributeParser.h"
 #include "AttributeValueParser.h"
 #include "ContentParser.h"
@@ -22,7 +22,7 @@ TEST(Text1, ValidCase)
     
     auto result = ptr->parse();
     
-    EXPECT_EQ("html", result[0].getTegName());
+    EXPECT_EQ("html", result[0].getTagName());
 }
 
 
@@ -35,7 +35,7 @@ TEST(ParserNameTeg, ValidCase)
     expectResult.emplace_back("head");
     expectResult.emplace_back("Title");
 
-    std::shared_ptr<BaseParser> ptr = std::make_shared<TegNameParser>(inputData);
+    std::shared_ptr<BaseParser> ptr = std::make_shared<TagNameParser>(inputData);
 
     std::vector<std::string> result = ptr->parse();
 
@@ -50,7 +50,7 @@ TEST(ParserNameTeg, InvalidCase)
     std::string inputData("html>head><Title>Caption</Title></head></html>");
     std::vector<std::string> expectResult;
     expectResult.emplace_back("Title");
-    std::shared_ptr<BaseParser> ptr = std::make_shared<TegNameParser>(inputData);
+    std::shared_ptr<BaseParser> ptr = std::make_shared<TagNameParser>(inputData);
 
     std::vector<std::string> result = ptr->parse();
 
@@ -61,7 +61,7 @@ TEST(ParserNameTeg, InvalidCase)
 TEST(ParserNameTeg, InvalidCase2)
 {
     std::string inputData("<SomeData<Something");
-    std::shared_ptr<BaseParser> ptr = std::make_shared<TegNameParser>(inputData);
+    std::shared_ptr<BaseParser> ptr = std::make_shared<TagNameParser>(inputData);
 
     std::vector<std::string> result = ptr->parse();
 
@@ -180,7 +180,7 @@ TEST(DOMParser, TestCase)
     expectResult.emplace_back("head");
     expectResult.emplace_back("Title");
 
-    std::shared_ptr<DOMParser> ptr2(new DOMParser(new TegNameParser(inputData)));
+    std::shared_ptr<DOMParser> ptr2(new DOMParser(new TagNameParser(inputData)));
 
     std::vector<std::string> result(ptr2->parse());
 
