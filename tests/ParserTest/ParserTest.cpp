@@ -1,20 +1,13 @@
 #include "gtest/gtest.h"
-/*
-#include "BaseParser.h"
-#include "TagNameParser.h"
-#include "AttributeParser.h"
-#include "AttributeValueParser.h"
-#include "ContentParser.h"
-#include "DOMParser.h"
-*/
 
 #include "domparser/BaseParser.h"
 #include "domparser/ContentParser.h"
 #include "domparser/ProcessPage.h"
+#include "domparser/TagNameParser.h"
+#include "domparser/DataParser.h"
 
 
 #include <memory>
-#include <iostream>
 
 
 TEST(Text1, ValidCase)
@@ -41,23 +34,14 @@ TEST(Test2, Verify)
 }
 
 
-/*
 TEST(ParserNameTeg, ValidCase)
 {
     std::string inputData("<html><head><Title>Caption</Title></head></html>");
-    std::vector<std::string> expectResult;
-    expectResult.emplace_back("html");
-    expectResult.emplace_back("head");
-    expectResult.emplace_back("Title");
+    std::unique_ptr<BaseParser> ptr(new TagNameParser(inputData));
+    std::vector<DataParser> result = ptr->parse();
 
-    std::shared_ptr<BaseParser> ptr = std::make_shared<TagNameParser>(inputData);
-
-    std::vector<std::string> result = ptr->parse();
-
-    EXPECT_EQ(expectResult[0], result[0]);
-    EXPECT_EQ(expectResult[1], result[1]);
-    EXPECT_EQ(expectResult[2], result[2]);
-    EXPECT_EQ(result.size(), 3);
+    EXPECT_EQ("html", result[0].getTagName());
+    EXPECT_EQ(result.size(), 1);
 }
 
 TEST(ParserNameTeg, InvalidCase)
@@ -65,22 +49,11 @@ TEST(ParserNameTeg, InvalidCase)
     std::string inputData("html>head><Title>Caption</Title></head></html>");
     std::vector<std::string> expectResult;
     expectResult.emplace_back("Title");
-    std::shared_ptr<BaseParser> ptr = std::make_shared<TagNameParser>(inputData);
-
-    std::vector<std::string> result = ptr->parse();
+    std::unique_ptr<BaseParser> ptr(new TagNameParser(inputData));
+    std::vector<DataParser> result = ptr->parse();
 
     EXPECT_EQ(result.size(), 1);
-    EXPECT_EQ(expectResult[0], result[0]);
-}
-
-TEST(ParserNameTeg, InvalidCase2)
-{
-    std::string inputData("<SomeData<Something");
-    std::shared_ptr<BaseParser> ptr = std::make_shared<TagNameParser>(inputData);
-
-    std::vector<std::string> result = ptr->parse();
-
-    EXPECT_TRUE(result.empty());
+    EXPECT_EQ(expectResult[0], result[0].getTagName());
 }
 
 TEST(ParserAttribute, ValidCase)
@@ -203,7 +176,7 @@ TEST(DOMParser, TestCase)
     EXPECT_EQ(result[1], expectResult[1]);
     EXPECT_EQ(result[2], expectResult[2]);
 }
-*/
+
 
 int main(int argc, char** argv)
 {
