@@ -8,22 +8,88 @@
 #include "domparser/AttributeParser.h"
 #include "domparser/AttributeValueParser.h"
 
-
 #include <memory>
 
-TEST(Test2, Verify)
+namespace
 {
-    ProcessPage processPage("index.html");
-    processPage.process();
-
-    std::vector<Tag> pageData = processPage.getPageData();
-
-    EXPECT_EQ(pageData.size(), 8);
-    EXPECT_EQ(pageData[0].getTagName(), "html");
-    EXPECT_EQ(pageData[0].getParent(), nullptr);
-    EXPECT_EQ(pageData[1].getParent()->getTagName(), "html");
+    std::string inputData("<html>\n"
+                          "    <script language=\"javascript\">\n"
+                          "        alert(\"Hi there, and welcome.\")\n"
+                          "    </script>\n"
+                          "    <style>\n"
+                          "        body {background-color: powderblue;}\n"
+                          "        h1   {color: blue;}\n"
+                          "        p    {color: red;}\n"
+                          "    </style>\n"
+                          "     <head>\n"
+                          "        <caption>Hello!</caption>\n"
+                          "    </head>\n"
+                          "    <body>\n"
+                          "        <div class=\"nameCl\">\n"
+                          "            Block Content\n"
+                          "        </div>\n"
+                          "        <p>Text</p>\n"
+                          "        <p>Another text</p>\n"
+                          "        <i name=\"nameI\" size = '2' with =6>Content</i>\n"
+                          "    </body>\n"
+                          "</html>");
 }
 
+TEST(MainParserTest, CheckTagChildren)
+{
+    ProcessPage processPage;
+    processPage.setSourceWebPage(inputData);
+    processPage.process();
+    std::vector<Tag> pageData = processPage.getPageData();
+
+    auto childrenHTML = pageData[0].getChildren();
+    auto childrenBODY = pageData[5].getChildren();
+
+    EXPECT_EQ(pageData.size(), 10);
+    EXPECT_EQ(pageData[0].getTagName(), "html");
+    EXPECT_EQ(childrenHTML[0]->getTagName(), "script");
+    EXPECT_EQ(childrenHTML[1]->getTagName(), "style");
+    EXPECT_EQ(childrenHTML[2]->getTagName(), "head");
+    EXPECT_EQ(childrenHTML[3]->getTagName(), "body");
+    EXPECT_EQ(childrenBODY[0]->getTagName(), "div");
+    EXPECT_EQ(childrenBODY[1]->getTagName(), "p");
+    EXPECT_EQ(childrenBODY[2]->getTagName(), "p");
+    EXPECT_EQ(childrenBODY[3]->getTagName(), "i");
+}
+
+TEST(MainParserTest, CheckTagParent)
+{
+    ProcessPage processPage;
+    processPage.setSourceWebPage(inputData);
+    processPage.process();
+    std::vector<Tag> pageData = processPage.getPageData();
+
+    EXPECT_EQ(pageData[0].getTagName(), "html");
+    EXPECT_EQ(pageData[0].getParent(), nullptr);
+    EXPECT_EQ(pageData[4].getTagName(), "caption");
+    EXPECT_EQ(pageData[4].getParent()->getTagName(), "head");
+    EXPECT_EQ(pageData[6].getTagName(), "div");
+    EXPECT_EQ(pageData[6].getParent()->getTagName(), "body");
+}
+
+TEST(MainParserTest, CheckTagAttributes)
+{
+    ProcessPage processPage;
+    processPage.setSourceWebPage(inputData);
+    processPage.process();
+    std::vector<Tag> pageData = processPage.getPageData();
+
+    auto attributeScript = pageData[1].getAttributeTag();
+    auto attributeScriptValue = pageData[1].getAttributeValueTag();
+    auto attributeI = pageData[9].getAttributeTag();
+    auto attributeIValue = pageData[9].getAttributeValueTag();
+
+    EXPECT_EQ(pageData[1].getTagName(), "script");
+    EXPECT_EQ(attributeScript[0], "language");
+    EXPECT_EQ(attributeScriptValue[0], "javascript");
+    EXPECT_EQ(attributeI[1], "size ");
+    EXPECT_EQ(attributeIValue[1], "2");
+}
 
 TEST(ParserNameTeg, ValidCase)
 {
@@ -94,7 +160,7 @@ TEST(ParserAttributeValue, ValidCase)
     EXPECT_EQ(expectResult[3], result[3].getAttributeValue());
 }
 
-TEST(ParseAttributeValue, InvalidCase)
+TEST(ParserAttributeValue, InvalidCase)
 {
     std::string inputData("<body width=\"4'><div class=name\" with 2></div><i id='someid\">str</i><b size ~ 5>str2</b></body>");
     std::unique_ptr<BaseParser> ptr(new AttibuteValueParser(inputData));
