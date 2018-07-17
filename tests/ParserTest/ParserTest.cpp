@@ -83,11 +83,11 @@ TEST(ParserAttribute, InvalidCase)
 
     EXPECT_TRUE(result.empty());
 }
-/*
+
 TEST(ParserAttributeValue, ValidCase)
 {
     std::string inputData("<body width=4><div class=\"name\" with = '2'>Content</div><i id='someid'>str</i><b size = \"5\">str2</b></body>");
-    std::shared_ptr<BaseParser> ptr = std::make_shared<AttibuteValueParser>(inputData);
+    std::unique_ptr<BaseParser> ptr(new AttibuteValueParser(inputData));
     std::vector<std::string> expectResult;
 
     expectResult.emplace_back("4");
@@ -96,26 +96,26 @@ TEST(ParserAttributeValue, ValidCase)
     expectResult.emplace_back("someid");
     expectResult.emplace_back("5");
 
-    std::vector<std::string> result = ptr->parse();
+    std::vector<DataParser> result = ptr->parse();
 
     EXPECT_EQ(expectResult.size(), result.size());
-    EXPECT_EQ(expectResult[0], result[0]);
-    EXPECT_EQ(expectResult[1], result[1]);
-    EXPECT_EQ(expectResult[2], result[2]);
-    EXPECT_EQ(expectResult[3], result[3]);
+    EXPECT_EQ(expectResult[0], result[0].getAttributeValue());
+    EXPECT_EQ(expectResult[1], result[1].getAttributeValue());
+    EXPECT_EQ(expectResult[2], result[2].getAttributeValue());
+    EXPECT_EQ(expectResult[3], result[3].getAttributeValue());
 }
 
 TEST(ParseAttributeValue, InvalidCase)
 {
     std::string inputData("<body width=\"4'><div class=name\" with 2></div><i id='someid\">str</i><b size ~ 5>str2</b></body>");
-    std::shared_ptr<BaseParser> ptr = std::make_shared<AttibuteValueParser>(inputData);
+    std::unique_ptr<BaseParser> ptr(new AttibuteValueParser(inputData));
 
-    std::vector<std::string> result = ptr->parse();
+    std::vector<DataParser> result = ptr->parse();
 
-    EXPECT_EQ(result[0], "");
+    EXPECT_EQ(result[0].getAttributeValue(), "");
     EXPECT_EQ(result.size(), 1);
 }
-
+/*
 TEST(ContentParser, ValidCase)
 {
     std::string inputData("<html><head><Title>Caption</Title></head></html>");
@@ -158,23 +158,6 @@ TEST(ContentParser, InvalidCase3)
     EXPECT_NO_THROW(result = ptr->parse());
     EXPECT_EQ(result.size(), 0);
     EXPECT_TRUE(result.empty());
-}
-
-TEST(DOMParser, TestCase)
-{
-    std::string inputData("<html><head><Title>Caption</Title></head></html>");
-    std::vector<std::string> expectResult;
-    expectResult.emplace_back("html");
-    expectResult.emplace_back("head");
-    expectResult.emplace_back("Title");
-
-    std::shared_ptr<DOMParser> ptr2(new DOMParser(new TagNameParser(inputData)));
-
-    std::vector<std::string> result(ptr2->parse());
-
-    EXPECT_EQ(result[0], expectResult[0]);
-    EXPECT_EQ(result[1], expectResult[1]);
-    EXPECT_EQ(result[2], expectResult[2]);
 }
 */
 
