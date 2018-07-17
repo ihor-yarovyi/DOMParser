@@ -3,9 +3,10 @@
 
 #include <string>
 #include <memory>
+#include <vector>
 
 #include "BaseParser.h"
-#include "PageData.h"
+#include "Teg.h"
 
 class ProcessPage
 {
@@ -15,16 +16,15 @@ public:
 
     void setWebPage(const std::string&);
     void process();
-    PageData getData() const;
+    std::vector<Teg> getPageData() const;
 
 private:
     void processInputPageHelper(const std::string&);
-    PageData processHelper(const std::string&, PageData&);
+    std::vector<Teg> processHelper(const std::string&, std::vector<Teg>&, Teg*);
 
 private:
-    std::shared_ptr<BaseParser> m_BasePtr;
     std::string m_InputPage {};
-    PageData m_PageData;
+    std::vector<Teg> m_PageData;
 };
 
 

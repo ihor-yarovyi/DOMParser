@@ -23,58 +23,56 @@ void ProcessPage::processInputPageHelper(const std::string& pathToPage)
     m_InputPage.insert(m_InputPage.begin(), std::istreambuf_iterator<char>(inputFile), std::istreambuf_iterator<char>());
 }
 
-PageData ProcessPage::getData() const
+std::vector<Teg> ProcessPage::getPageData() const
 {
     return m_PageData;
 }
 
 void ProcessPage::process()
 {
-    processHelper(m_InputPage, m_PageData);
+    processHelper(m_InputPage, m_PageData, nullptr);
 }
 
-PageData ProcessPage::processHelper(const std::string& input, PageData& pageData)
+std::vector<Teg> ProcessPage::processHelper(const std::string& input, std::vector<Teg>& pageData, Teg* tegPtr)
 {
     if (!input.empty())
     {
-        m_BasePtr = std::make_shared<ContentParser>(input);
-        std::vector<DataParser> tempVec = m_BasePtr->parse();
+        std::unique_ptr<BaseParser> basePtr(new ContentParser(input));
+        std::vector<DataParser> tempVec = basePtr->parse();
 
         for (const auto& i : tempVec)
         {
-            Teg teg;
-            teg.setTegName(i.getTegName());
-            teg.setContent(i.getContent());
-
-            m_BasePtr.reset();
-            m_BasePtr = std::make_shared<AttributeParser>(i.getNotParsingAttributes());
-
-            auto attributes = m_BasePtr->parse();
+            Teg* teg = new Teg;
+            teg->setTegName(i.getTegName());
+            teg->setContent(i.getContent());
+            basePtr.reset();
+            basePtr = std::make_unique<AttributeParser>(i.getNotParsingAttributes());
+            auto attributes = basePtr->parse();
 
             for (const auto& attributesIter : attributes)
             {
-                teg.setAttributeTeg(attributesIter.getAttribute());
+                teg->setAttributeTeg(attributesIter.getAttribute());
             }
 
-            m_BasePtr.reset();
-            m_BasePtr = std::make_shared<AttibuteValueParser>(i.getNotParsingAttributes());
-
-            auto attributesValue = m_BasePtr->parse();
+            basePtr.reset();
+            basePtr = std::make_unique<AttibuteValueParser>(i.getNotParsingAttributes());
+            auto attributesValue = basePtr->parse();
 
             for (const auto& attributesValueIter : attributesValue)
             {
-                teg.setAttributeValueTeg(attributesValueIter.getAttributeValue());
+                teg->setAttributeValueTeg(attributesValueIter.getAttributeValue());
             }
 
-            if (!pageData.empty())
+            teg->setParent(tegPtr);
+            
+            if (tegPtr != nullptr)
             {
-                pageData.last().setChildren(&teg);
-                teg.setParent(&pageData.last());
+                auto position = std::find(pageData.begin(), pageData.end(), tegPtr);
+                position->setChildren(teg);
             }
 
-            pageData.add(teg);
-
-            processHelper(i.getContent(), pageData);
+            pageData.emplace_back(*teg);
+            processHelper(i.getContent(), pageData, teg);
         }
     }
     return pageData;
