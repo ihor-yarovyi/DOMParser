@@ -8,6 +8,7 @@ public:
 	Teg(const std::string& = "");
 	~Teg();
 
+    bool operator==(Teg*);
 	void setTegName(const std::string&);
 	std::string getTegName() const;
 

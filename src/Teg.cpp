@@ -17,6 +17,13 @@ void Teg::setTegName(const std::string& tegName)
 	m_Name = tegName;
 }
 
+bool Teg::operator==(Teg* right)
+{
+    return m_Name == right->m_Name && m_Parent == right->m_Parent
+        && m_Content == right->m_Content && m_AttributeTeg == right->m_AttributeTeg
+        && m_AttributeValueTeg == right->m_AttributeValueTeg;
+}
+
 std::string Teg::getTegName() const
 {
 	return m_Name;
