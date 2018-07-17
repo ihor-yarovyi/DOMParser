@@ -16,6 +16,11 @@ void ProcessPage::setWebPage(const std::string& pathToPage)
     processInputPageHelper(pathToPage);
 }
 
+void ProcessPage::setSourceWebPage(const std::string& dataPage)
+{
+    m_InputPage = dataPage;
+}
+
 void ProcessPage::processInputPageHelper(const std::string& pathToPage)
 {
     std::ifstream inputFile(pathToPage, std::ios::in);

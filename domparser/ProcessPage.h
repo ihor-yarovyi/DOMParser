@@ -11,10 +11,11 @@
 class ProcessPage
 {
 public:
-    ProcessPage(const std::string&);
+    ProcessPage(const std::string& = "");
     ~ProcessPage() = default;
 
     void setWebPage(const std::string&);
+    void setSourceWebPage(const std::string&);
     void process();
     std::vector<Tag> getPageData() const;
 
