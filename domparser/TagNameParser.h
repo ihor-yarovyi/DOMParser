@@ -4,11 +4,11 @@
 #include "BaseParser.h"
 #include <regex>
 
-class TegNameParser : public BaseParser
+class TagNameParser : public BaseParser
 {
 public:
-    TegNameParser(const std::string&);
-    virtual ~TegNameParser() = default;
+    TagNameParser(const std::string&);
+    virtual ~TagNameParser() = default;
 
     virtual std::vector<DataParser> parse();
 

@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "BaseParser.h"
-#include "Teg.h"
+#include "Tag.h"
 
 class ProcessPage
 {
@@ -16,15 +16,15 @@ public:
 
     void setWebPage(const std::string&);
     void process();
-    std::vector<Teg> getPageData() const;
+    std::vector<Tag> getPageData() const;
 
 private:
     void processInputPageHelper(const std::string&);
-    std::vector<Teg> processHelper(const std::string&, std::vector<Teg>&, Teg*);
+    std::vector<Tag> processHelper(const std::string&, std::vector<Tag>&, Tag*);
 
 private:
     std::string m_InputPage {};
-    std::vector<Teg> m_PageData;
+    std::vector<Tag> m_PageData;
 };
 
 

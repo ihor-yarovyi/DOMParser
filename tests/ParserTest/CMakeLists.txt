@@ -2,19 +2,11 @@ cmake_minimum_required(VERSION 2.8)
 
 project(ParserTest)
 
-include_directories(../../src)
+include(${CMAKE_SOURCE_DIR}/cmake/GoogleTest.cmake)
 
-set(GTEST_SRC ../../googletest/googletest/src/gtest-all.cc)
-include_directories(../../googletest/googletest ../../googletest/googletest/include)
+add_executable(ParserTest ParserTest.cpp)
 
-find_package(Threads)
-add_library(googletest STATIC ${GTEST_SRC})
-target_link_libraries(googletest ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(ParserTest googletest ${LIBRARY_NAME})
 
-add_executable(ParserTest ./ParserTest.cpp
-        ../../src/TegNameParser.cpp
-        ../../src/AttributeParser.cpp
-        ../../src/AttributeValueParser.cpp
-        ../../src/ContentParser.cpp
-        ../../src/DOMParser.cpp)
-target_link_libraries(ParserTest googletest)
+install(TARGETS ParserTest
+    RUNTIME DESTINATION "${INSTALL_BIN_DIR}" COMPONENT bin)
