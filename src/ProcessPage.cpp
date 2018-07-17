@@ -7,7 +7,6 @@
 #include <fstream>
 
 ProcessPage::ProcessPage(const std::string& pathToPage)
-: m_BasePtr(nullptr)
 {
     processInputPageHelper(pathToPage);
 }
