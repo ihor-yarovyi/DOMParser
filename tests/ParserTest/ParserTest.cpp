@@ -11,17 +11,6 @@
 
 #include <memory>
 
-
-TEST(Text1, ValidCase)
-{
-    std::string inputData("<html><head><Title>Caption</Title></head></html>");
-    std::shared_ptr<BaseParser> ptr = std::make_shared<ContentParser>(inputData);
-    
-    auto result = ptr->parse();
-    
-    EXPECT_EQ("html", result[0].getTagName());
-}
-
 TEST(Test2, Verify)
 {
     ProcessPage processPage("index.html");
@@ -115,34 +104,38 @@ TEST(ParseAttributeValue, InvalidCase)
     EXPECT_EQ(result[0].getAttributeValue(), "");
     EXPECT_EQ(result.size(), 1);
 }
-/*
+
 TEST(ContentParser, ValidCase)
 {
     std::string inputData("<html><head><Title>Caption</Title></head></html>");
-    std::shared_ptr<BaseParser> ptr = std::make_shared<ContentParser>(inputData);
+    std::unique_ptr<BaseParser> ptr(new ContentParser(inputData));
 
-    std::vector<std::string> result = ptr->parse();
+    std::vector<DataParser> result = ptr->parse();
 
     EXPECT_EQ(result.size(), 1);
-    EXPECT_EQ(result[0], "<head><Title>Caption</Title></head>");
+    EXPECT_EQ(result[0].getContent(), "<head><Title>Caption</Title></head>");
+    EXPECT_EQ(result[0].getTagName(), "html");
+    EXPECT_EQ(result[0].getNotParsingAttributes(), "");
 }
 
 TEST(ContentParser, InvalidCase)
 {
     std::string inputData("<html></html>");
-    std::shared_ptr<BaseParser> ptr = std::make_shared<ContentParser>(inputData);
+    std::unique_ptr<BaseParser> ptr(new ContentParser(inputData));
 
-    std::vector<std::string> result = ptr->parse();
+    std::vector<DataParser> result = ptr->parse();
 
     EXPECT_EQ(result.size(), 1);
-    EXPECT_EQ(result[0], "");
+    EXPECT_EQ(result[0].getContent(), "");
+    EXPECT_EQ(result[0].getTagName(), "html");
+    EXPECT_EQ(result[0].getNotParsingAttributes(), "");
 }
 
 TEST(ContentParser, InvalidCase2)
 {
     std::string inputData("html>Content</html>");
-    std::shared_ptr<BaseParser> ptr = std::make_shared<ContentParser>(inputData);
-    std::vector<std::string> result {};
+    std::unique_ptr<BaseParser> ptr(new ContentParser(inputData));
+    std::vector<DataParser> result {};
 
     EXPECT_NO_THROW(result = ptr->parse());
     EXPECT_EQ(result.size(), 0);
@@ -152,14 +145,13 @@ TEST(ContentParser, InvalidCase2)
 TEST(ContentParser, InvalidCase3)
 {
     std::string inputData("<html>Content<html>");
-    std::shared_ptr<BaseParser> ptr = std::make_shared<ContentParser>(inputData);
-    std::vector<std::string> result {};
+    std::unique_ptr<BaseParser> ptr(new ContentParser(inputData));
+    std::vector<DataParser> result {};
 
     EXPECT_NO_THROW(result = ptr->parse());
     EXPECT_EQ(result.size(), 0);
     EXPECT_TRUE(result.empty());
 }
-*/
 
 int main(int argc, char** argv)
 {
