@@ -1,16 +1,14 @@
-#ifndef DOMPARSER_IPAGEDATA_H
-#define DOMPARSER_IPAGEDATA_H
+#ifndef DOMPARSER_PAGEDATAIMPL_H
+#define DOMPARSER_PAGEDATAIMPL_H
 
-#include <vector>
-#include <string>
+#include "IPageData.h"
+#include "ProcessPage.h"
 
-#include "Tag.h"
-
-class IPageData
+class PageDataImpl : public IPageData
 {
 public:
-    IPageData() = default;
-    ~IPageData() = default;
+    PageDataImpl(const std::string&, const std::string&); // Path and rules
+    ~PageDataImpl();
 
     virtual std::vector<Tag> getPageData(const std::string&) const = 0;
     // Navigation
@@ -36,6 +34,10 @@ public:
     virtual std::string getTagName(Tag*) = 0;
     virtual std::string getTagContent(Tag*) = 0;
     virtual std::string getAttributeValue(Tag*, const std::string&) = 0;
+
+private:
+    ProcessPage m_ProcessPage;
+    std::vector<Tag> m_Data;
 };
 
-#endif //DOMPARSER_IPAGEDATA_H
+#endif //DOMPARSER_PAGEDATAIMPL_H
