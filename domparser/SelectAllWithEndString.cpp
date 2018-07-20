@@ -1,11 +1,12 @@
-#include "SelectAllWithAttributeAndValue.h"
+#include "SelectAllWithEndString.h"
 
-SelectAllWithAttributeAndValue::SelectAllWithAttributeAndValue(const std::cmatch& cm)
+SelectAllWithEndString::SelectAllWithEndString(const std::cmatch& cm)
 : m_Match(cm.begin(), cm.end())
 {
+
 }
 
-bool SelectAllWithAttributeAndValue::checkRules(Tag* tag) const
+bool SelectAllWithEndString::checkRules(Tag* tag) const
 {
     if (tag != nullptr)
     {
@@ -14,9 +15,10 @@ bool SelectAllWithAttributeAndValue::checkRules(Tag* tag) const
 
         if (attribute.size() == attributeValue.size())
         {
+            std::cmatch cm;
             for (size_t i = 0; i < attribute.size(); ++i)
             {
-                if (attribute[i] == m_Match[2] && attributeValue[i] == m_Match[3])
+                if (attribute[i] == m_Match[2] && std::regex_search(attributeValue[i].data(), cm, std::regex("(" + m_Match[3] + ")$")))
                 {
                     return true;
                 }
