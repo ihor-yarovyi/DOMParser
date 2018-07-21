@@ -28,9 +28,7 @@ bool SelectTagsWithMatchingAttributes::checkRules(Tag* tag) const
                 while (next != end)
                 {
                     sm = *next;
-
                     auto attributePosition = std::find(attribute.begin(), attribute.end(), sm[2].str());
-
                     auto attributeValuePosition = std::find_if(attributeValue.begin(), attributeValue.end(),
                             [&sm](const std::string& str)
                             {
@@ -48,6 +46,7 @@ bool SelectTagsWithMatchingAttributes::checkRules(Tag* tag) const
             }
             catch (const std::regex_error& e)
             {
+                // TODO: Make handler of the exception
             }
         }
     }
