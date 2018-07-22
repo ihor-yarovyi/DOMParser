@@ -6,8 +6,8 @@
 class SelectAllWithAttribute : public CheckRulesFactory
 {
 public:
-    SelectAllWithAttribute(const std::cmatch&);
-    virtual bool checkRules(Tag* tag) const;
+    explicit SelectAllWithAttribute(const std::cmatch&);
+    virtual bool checkRules(Tag*) const;
 
 private:
     std::vector<std::string> m_Match;

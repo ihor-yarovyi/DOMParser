@@ -6,7 +6,7 @@
 class SelectDivRule : public CheckRulesFactory
 {
 public:
-    SelectDivRule(const std::cmatch&);
+    explicit SelectDivRule(const std::cmatch&);
     virtual bool checkRules(Tag*) const;
 
 private:

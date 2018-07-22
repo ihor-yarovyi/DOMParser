@@ -6,7 +6,7 @@
 class SelectAllNotEqualAttributeValue : public CheckRulesFactory
 {
 public:
-    SelectAllNotEqualAttributeValue(const std::cmatch&);
+    explicit SelectAllNotEqualAttributeValue(const std::cmatch&);
     virtual bool checkRules(Tag*) const;
 
 private:

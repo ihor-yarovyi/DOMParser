@@ -6,7 +6,7 @@
 class SelectAllWithEndString : public CheckRulesFactory
 {
 public:
-    SelectAllWithEndString(const std::cmatch&);
+    explicit SelectAllWithEndString(const std::cmatch&);
     virtual bool checkRules(Tag*) const;
 
 private:

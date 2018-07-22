@@ -6,7 +6,7 @@
 class SelectAllWithPartString : public CheckRulesFactory
 {
 public:
-    SelectAllWithPartString(const std::cmatch&);
+    explicit SelectAllWithPartString(const std::cmatch&);
     virtual bool checkRules(Tag*) const;
 
 private:
