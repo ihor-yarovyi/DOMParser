@@ -1,7 +1,6 @@
 #include "SelectTagsWithMatchingAttributes.h"
 #include <functional>
 #include <algorithm>
-#include <assert.h>
 
 SelectTagsWithMatchingAttributes::SelectTagsWithMatchingAttributes(const std::string& rule, const std::string& reg)
 : m_FullRule(rule),
