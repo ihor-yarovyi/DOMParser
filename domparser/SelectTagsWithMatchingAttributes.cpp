@@ -28,14 +28,9 @@ bool SelectTagsWithMatchingAttributes::checkRules(Tag* tag) const
                 {
                     sm = *next;
                     auto attributePosition = std::find(attribute.begin(), attribute.end(), sm[2].str());
-                    auto attributeValuePosition = std::find_if(attributeValue.begin(), attributeValue.end(),
-                            [&sm](const std::string& str)
-                            {
-                                std::cmatch loc;
-                                return std::regex_search(str.data(), loc, std::regex("(" + sm[3].str() + ")"));
-                            });
-
-                    if (attributePosition == attribute.end() || attributeValuePosition == attributeValue.end())
+                    std::cmatch loc;
+                    if (attributePosition == attribute.end() ||
+                        !std::regex_search(attributeValue[std::distance(attribute.begin(), attributePosition)].data(), loc, std::regex("(" + sm[3].str() + ")")))
                     {
                         return false;
                     }
