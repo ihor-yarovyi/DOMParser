@@ -6,7 +6,8 @@
 
 #include <fstream>
 
-ProcessPage::ProcessPage(const std::string& pathToPage)
+ProcessPage::ProcessPage(const std::string& pathToPage, const std::string& rule)
+: m_CheckRulePtr(CheckRulesFactory::createCheckRulesFactory(rule))
 {
     processInputPageHelper(pathToPage);
 }
@@ -75,7 +76,10 @@ std::vector<Tag> ProcessPage::processHelper(const std::string& input, std::vecto
                 position->setChildren(tag);
             }
 
-            pageData.emplace_back(*tag);
+            if (m_CheckRulePtr->checkRules(tag))
+            {
+                pageData.emplace_back(*tag);
+            }
             processHelper(i.getContent(), pageData, tag);
         }
     }

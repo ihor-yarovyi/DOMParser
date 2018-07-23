@@ -7,11 +7,12 @@
 
 #include "BaseParser.h"
 #include "Tag.h"
+#include "CheckRulesFactory.h"
 
 class ProcessPage
 {
 public:
-    ProcessPage(const std::string& = "");
+    ProcessPage(const std::string&, const std::string& = "*");
     ~ProcessPage() = default;
 
     void setWebPage(const std::string&);
@@ -25,7 +26,8 @@ private:
 
 private:
     std::string m_InputPage {};
-    std::vector<Tag> m_PageData;
+    std::vector<Tag> m_PageData {};
+    std::unique_ptr<CheckRulesFactory> m_CheckRulePtr;
 };
 
 
