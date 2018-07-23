@@ -35,7 +35,10 @@ std::vector<Tag> ProcessPage::getPageData() const
 
 void ProcessPage::process()
 {
-    processHelper(m_InputPage, m_PageData, nullptr);
+    if (m_CheckRulePtr != nullptr)
+    {
+        processHelper(m_InputPage, m_PageData, nullptr);
+    }
 }
 
 std::vector<Tag> ProcessPage::processHelper(const std::string& input, std::vector<Tag>& pageData, Tag* tagPtr)
