@@ -34,7 +34,12 @@ void Tag::setContent(const std::string& constentValue)
 	m_Content = constentValue;
 }
 
-std::string& Tag::getContent() const
+std::string Tag::getContent() const
+{
+	return m_Content;
+}
+
+std::string& Tag::getContent()
 {
 	return m_Content;
 }
@@ -64,9 +69,14 @@ void Tag::setAttributeTag(const std::string &data)
     m_AttributeTeg.emplace_back(data);
 }
 
-std::vector<std::string>& Tag::getAttributeTag() const
+std::vector<std::string> Tag::getAttributeTag() const
 {
     return m_AttributeTeg;
+}
+
+std::vector<std::string>& Tag::getAttributeTag()
+{
+	return m_AttributeTeg;
 }
 
 void Tag::setAttributeValueTag(const std::string &data)
@@ -74,7 +84,12 @@ void Tag::setAttributeValueTag(const std::string &data)
     m_AttributeValueTeg.emplace_back(data);
 }
 
-std::vector<std::string>& Tag::getAttributeValueTag() const
+std::vector<std::string> Tag::getAttributeValueTag() const
 {
     return m_AttributeValueTeg;
+}
+
+std::vector<std::string>& Tag::getAttributeValueTag()
+{
+	return m_AttributeValueTeg;
 }

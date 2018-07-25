@@ -20,13 +20,16 @@ public:
 	std::vector<Tag*> getChildren() const;
 
 	void setAttributeTag(const std::string &);
-	std::vector<std::string>& getAttributeTag() const;
+	std::vector<std::string> getAttributeTag() const;
+	std::vector<std::string>& getAttributeTag();
 
 	void setAttributeValueTag(const std::string &);
-	std::vector<std::string>& getAttributeValueTag() const;
+	std::vector<std::string> getAttributeValueTag() const;
+	std::vector<std::string>& getAttributeValueTag();
 
 	void setContent(const std::string&);
-	std::string& getContent() const;
+	std::string getContent() const;
+	std::string& getContent();
 
 private:
 	std::string m_Name {};
