@@ -14,6 +14,16 @@ size_t PageDataImpl::getNumberOfTags() const
     return m_Data.size();
 }
 
+bool PageDataImpl::setCurrentTag(size_t index)
+{
+    if (index < m_Data.size())
+    {
+        m_CurrentTag = index;
+        return true;
+    }
+    return false;
+}
+
 Tag* PageDataImpl::first() const
 {
     if (!m_Data.empty())

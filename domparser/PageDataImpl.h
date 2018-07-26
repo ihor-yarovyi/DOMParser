@@ -11,6 +11,7 @@ public:
     ~PageDataImpl() = default;
 
     virtual size_t getNumberOfTags() const;
+    virtual bool setCurrentTag(size_t);
     // Navigation
     virtual Tag* first() const;
     virtual Tag* last() const;
