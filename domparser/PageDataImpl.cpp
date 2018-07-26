@@ -100,13 +100,22 @@ std::vector<Tag*> PageDataImpl::siblings() const
 {
     std::vector<Tag*> result {};
     auto parent = m_Data[m_CurrentTag].getParent();
+    auto position = std::find_if(m_Data.begin(), m_Data.end(),
+                                 [&parent](const Tag& tag)
+                                 {
+                                     return tag.getTagName() == parent->getTagName() &&
+                                            tag.getParent() == parent->getParent() &&
+                                            tag.getAttributeTag() == parent->getAttributeTag() &&
+                                            tag.getAttributeValueTag() == parent->getAttributeValueTag() &&
+                                            tag.getContent() == parent->getContent();
+                                 });
 
-    if (!m_Data.empty() && parent != nullptr)
+    if (parent != nullptr)
     {
-        auto children = parent->getChildren();
+        std::vector<Tag*> children = position->getChildren();
         for (const auto& i : children)
         {
-            if (i != &m_Data[m_CurrentTag])
+            if (!compareTags(m_Data[m_CurrentTag], i))
             {
                 result.emplace_back(i);
             }
