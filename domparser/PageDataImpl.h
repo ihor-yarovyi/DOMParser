@@ -22,8 +22,9 @@ public:
     virtual std::vector<Tag*> children() const;
     virtual std::vector<Tag*> siblings() const;
     // Modification
-    virtual bool insertAttribute(const std::string&, const std::string&) = 0;
-    virtual bool changeAttribute(const std::string&, const std::string&, const std::string&);
+    virtual bool insertAttribute(const std::string&, const std::string&);
+    virtual bool changeAttribute(const std::string&, const std::string&, const std::string&, const std::string&);
+    virtual bool removeAttribute(const std::string&, const std::string&);
 
 private:
     bool compareTags(const Tag&, Tag*) const;

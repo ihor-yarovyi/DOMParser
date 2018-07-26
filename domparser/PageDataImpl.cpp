@@ -126,17 +126,53 @@ bool PageDataImpl::insertAttribute(const std::string& attributeName, const std::
     return false;
 }
 
-bool PageDataImpl::changeAttribute(const std::string& attributeName, const std::string& attributeNewName, const std::string& attributeNewValue)
+bool PageDataImpl::changeAttribute(const std::string& attributeOldName, const std::string& attributeOldValue, const std::string& attributeNewName, const std::string& attributeNewValue)
 {
     if (!m_Data.empty())
     {
-        auto attributes = m_Data[m_CurrentTag].getAttributeTag();
-        auto attributePosition = std::find(attributes.begin(), attributes.end(), attributeName);
-        if (attributePosition != attributes.end())
+        auto attributes = &m_Data[m_CurrentTag].getAttributeTag();
+        auto attributePosition = std::find(attributes->begin(), attributes->end(), attributeOldName);
+        if (attributePosition != attributes->end())
         {
-            auto attributesValue = m_Data[m_CurrentTag].getAttributeValueTag();
-            *attributePosition = attributeNewName;
-            attributesValue[std::distance(attributes.begin(), attributePosition)] = attributeNewValue;
+            auto attributeValue = &m_Data[m_CurrentTag].getAttributeValueTag();
+            auto attributeValuePosition = std::find(attributeValue->begin(), attributeValue->end(), attributeOldValue);
+
+            if (attributeValuePosition != attributeValue->end() &&
+                std::distance(attributes->begin(), attributePosition) == std::distance(attributeValue->begin(), attributeValuePosition))
+            {
+                *attributePosition = attributeNewName;
+                *attributeValuePosition = attributeNewValue;
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool PageDataImpl::removeAttribute(const std::string& attributeName, const std::string& attributeValue)
+{
+    if (!m_Data.empty())
+    {
+        auto attributesPtr = &m_Data[m_CurrentTag].getAttributeTag();
+        auto attributesValuePtr = &m_Data[m_CurrentTag].getAttributeValueTag();
+        auto attributePosition = std::find(attributesPtr->begin(), attributesPtr->end(), attributeName);
+        auto attributeValuePosition = std::find(attributesValuePtr->begin(), attributesValuePtr->end(), attributeValue);
+
+        if (attributePosition != attributesPtr->end() && attributeValuePosition != attributesValuePtr->end()
+            && std::distance(attributesPtr->begin(), attributePosition) == std::distance(attributesValuePtr->begin(), attributeValuePosition))
+        {
+            auto attributeNextPosition = attributePosition;
+            ++attributeNextPosition;
+            auto attributeValueNextPosition = attributeValuePosition;
+            ++attributeValueNextPosition;
+
+            while (attributeNextPosition != attributesPtr->end() && attributeValueNextPosition != attributesValuePtr->end())
+            {
+                *attributePosition++ = *attributeNextPosition++;
+                *attributeValuePosition++ = *attributeValueNextPosition++;
+            }
+            attributesPtr->erase(attributePosition, attributesPtr->end());
+            attributesValuePtr->erase(attributeValuePosition, attributesValuePtr->end());
             return true;
         }
     }
