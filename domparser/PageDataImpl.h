@@ -13,11 +13,12 @@ public:
     virtual size_t getNumberOfTags() const;
     virtual bool setCurrentTag(size_t);
     // Navigation
-    virtual Tag* first() const;
-    virtual Tag* last() const;
+    virtual Tag* first();
+    virtual Tag* last();
     virtual Tag* next();
     virtual Tag* prev();
     virtual Tag* parent() const;
+    virtual Tag* current();
     virtual std::vector<Tag*> children() const;
     virtual std::vector<Tag*> siblings() const;
     // Modification

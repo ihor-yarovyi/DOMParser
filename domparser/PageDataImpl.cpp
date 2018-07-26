@@ -24,20 +24,20 @@ bool PageDataImpl::setCurrentTag(size_t index)
     return false;
 }
 
-Tag* PageDataImpl::first() const
+Tag* PageDataImpl::first()
 {
     if (!m_Data.empty())
     {
-        return &m_Data[0];
+        return &m_Data.front();
     }
     return nullptr;
 }
 
-Tag* PageDataImpl::last() const
+Tag* PageDataImpl::last()
 {
     if (!m_Data.empty())
     {
-        return &m_Data[0];
+        return &m_Data.back();
     }
     return nullptr;
 }
@@ -65,6 +65,15 @@ Tag* PageDataImpl::parent() const
     if (!m_Data.empty())
     {
         return m_Data[m_CurrentTag].getParent();
+    }
+    return nullptr;
+}
+
+Tag* PageDataImpl::current()
+{
+    if (!m_Data.empty())
+    {
+        return &m_Data[m_CurrentTag];
     }
     return nullptr;
 }
