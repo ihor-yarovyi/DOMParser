@@ -188,4 +188,18 @@ bool PageDataImpl::removeAttribute(const std::string& attributeName, const std::
     return false;
 }
 
+void PageDataImpl::pushBack(const Tag& tag)
+{
+    m_Data.emplace_back(tag);
+}
 
+void PageDataImpl::pushFront(const Tag& tag)
+{
+    std::vector<Tag> temp(m_Data.size() + 1);
+    temp.emplace_back(tag);
+    for (const auto& i : m_Data)
+    {
+        temp.emplace_back(i);
+    }
+    m_Data = std::move(temp);
+}

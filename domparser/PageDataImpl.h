@@ -26,6 +26,9 @@ public:
     virtual bool changeAttribute(const std::string&, const std::string&, const std::string&, const std::string&);
     virtual bool removeAttribute(const std::string&, const std::string&);
 
+    virtual void pushBack(const Tag&);
+    virtual void pushFront(const Tag&);
+
 private:
     bool compareTags(const Tag&, Tag*) const;
 
