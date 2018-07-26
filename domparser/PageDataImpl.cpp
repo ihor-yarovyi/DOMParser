@@ -195,7 +195,8 @@ void PageDataImpl::pushBack(const Tag& tag)
 
 void PageDataImpl::pushFront(const Tag& tag)
 {
-    std::vector<Tag> temp(m_Data.size() + 1);
+    std::vector<Tag> temp;
+    temp.reserve(m_Data.size() + 1);
     temp.emplace_back(tag);
     for (const auto& i : m_Data)
     {
