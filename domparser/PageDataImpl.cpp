@@ -24,6 +24,15 @@ bool PageDataImpl::setCurrentTag(size_t index)
     return false;
 }
 
+bool PageDataImpl::compareTags(const Tag& lTag, Tag* rTag) const
+{
+    return lTag.getTagName() == rTag->getTagName() &&
+           lTag.getParent() == rTag->getParent() &&
+           lTag.getAttributeTag() == rTag->getAttributeTag() &&
+           lTag.getAttributeValueTag() == rTag->getAttributeValueTag() &&
+           lTag.getContent() == rTag->getContent();
+}
+
 Tag* PageDataImpl::first()
 {
     if (!m_Data.empty())

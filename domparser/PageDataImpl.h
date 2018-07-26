@@ -25,6 +25,8 @@ public:
     virtual bool insertAttribute(const std::string&, const std::string&) = 0;
     virtual bool changeAttribute(const std::string&, const std::string&, const std::string&);
 
+private:
+    bool compareTags(const Tag&, Tag*) const;
 
 private:
     ProcessPage m_ProcessPage;
