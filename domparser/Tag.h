@@ -9,6 +9,7 @@ public:
 	~Tag();
 
 	bool operator==(Tag*);
+	bool operator==(const Tag&);
 
 	void setTagName(const std::string&);
 	std::string getTagName() const;

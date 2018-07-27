@@ -19,6 +19,13 @@ bool Tag::operator==(Tag* right)
 		   && m_AttributeValueTeg == right->m_AttributeValueTeg;
 }
 
+bool Tag::operator==(const Tag& right)
+{
+    return m_Name == right.m_Name && m_Parent == right.m_Parent
+           && m_Content == right.m_Content && m_AttributeTeg == right.m_AttributeTeg
+           && m_AttributeValueTeg == right.m_AttributeValueTeg;
+}
+
 void Tag::setTagName(const std::string& tagName)
 {
 	m_Name = tagName;
