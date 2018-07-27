@@ -226,3 +226,25 @@ bool PageDataImpl::pushBefore(size_t index, const Tag& newTag)
     }
     return false;
 }
+
+bool PageDataImpl::pushAfter(const Tag& existTag, const Tag& newTag)
+{
+    auto position = std::find(m_Data.begin(), m_Data.end(), existTag);
+    if (position != m_Data.end())
+    {
+        m_Data.insert(++position, newTag);
+        return true;
+    }
+    return false;
+}
+
+bool PageDataImpl::pushAfter(size_t index, const Tag& newTag)
+{
+    if (index < m_Data.size())
+    {
+        auto position = m_Data.begin() + index;
+        m_Data.insert(++position, newTag);
+        return true;
+    }
+    return false;
+}

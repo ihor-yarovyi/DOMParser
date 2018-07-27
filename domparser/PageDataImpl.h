@@ -30,6 +30,8 @@ public:
     virtual void pushFront(const Tag&);
     virtual bool pushBefore(const Tag&, const Tag&);
     virtual bool pushBefore(size_t, const Tag&);
+    virtual bool pushAfter(const Tag&, const Tag&);
+    virtual bool pushAfter(size_t, const Tag&);
 
 private:
     bool compareTags(const Tag&, Tag*) const;
