@@ -248,3 +248,23 @@ bool PageDataImpl::pushAfter(size_t index, const Tag& newTag)
     }
     return false;
 }
+
+bool PageDataImpl::changeContent(const std::string& newContent)
+{
+    if (!m_Data.empty())
+    {
+        m_Data[m_CurrentTag].setContent(newContent);
+        return true;
+    }
+    return false;
+}
+
+bool PageDataImpl::removeContent()
+{
+    if (!m_Data.empty())
+    {
+        m_Data[m_CurrentTag].setContent("");
+        return true;
+    }
+    return false;
+}
