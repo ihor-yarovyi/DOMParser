@@ -268,3 +268,16 @@ bool PageDataImpl::removeContent()
     }
     return false;
 }
+
+void PageDataImpl::removeTag()
+{
+    m_Data.erase(std::remove_if(m_Data.begin(), m_Data.end(),
+            [this](Tag& tag)
+            {
+                return tag == m_Data[m_CurrentTag];
+            }));
+    if (m_CurrentTag >= m_Data.size())
+    {
+        --m_CurrentTag;
+    }
+}
