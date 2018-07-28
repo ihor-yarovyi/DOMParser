@@ -290,3 +290,12 @@ std::string PageDataImpl::getTagName() const
     }
     return {};
 }
+
+std::string PageDataImpl::getTagContent() const
+{
+    if (!m_Data.empty())
+    {
+        return m_Data[m_CurrentTag].getContent();
+    }
+    return {};
+}

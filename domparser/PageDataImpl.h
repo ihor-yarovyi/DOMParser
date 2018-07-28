@@ -36,6 +36,7 @@ public:
     virtual bool removeContent();
     // Get value of DOM element
     virtual std::string getTagName() const;
+    virtual std::string getTagContent() const;
 
 private:
     bool compareTags(const Tag&, Tag*) const;
