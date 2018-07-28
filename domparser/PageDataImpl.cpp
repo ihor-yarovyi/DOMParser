@@ -299,3 +299,18 @@ std::string PageDataImpl::getTagContent() const
     }
     return {};
 }
+
+std::string PageDataImpl::getAttributeValue(const std::string& attribute) const
+{
+    if (!m_Data.empty())
+    {
+        auto tagAttributes = m_Data[m_CurrentTag].getAttributeTag();
+        auto position = std::find(tagAttributes.begin(), tagAttributes.end(), attribute);
+        if (position != tagAttributes.end())
+        {
+            auto tagAttributesValue = m_Data[m_CurrentTag].getAttributeValueTag();
+            return tagAttributesValue[std::distance(tagAttributes.begin(), position)];
+        }
+    }
+    return {};
+}

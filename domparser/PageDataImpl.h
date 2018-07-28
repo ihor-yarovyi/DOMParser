@@ -37,6 +37,7 @@ public:
     // Get value of DOM element
     virtual std::string getTagName() const;
     virtual std::string getTagContent() const;
+    virtual std::string getAttributeValue(const std::string&) const;
 
 private:
     bool compareTags(const Tag&, Tag*) const;
