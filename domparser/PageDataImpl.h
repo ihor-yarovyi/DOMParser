@@ -34,6 +34,8 @@ public:
     virtual bool pushAfter(size_t, const Tag&);
     virtual bool changeContent(const std::string&);
     virtual bool removeContent();
+    // Get value of DOM element
+    virtual std::string getTagName() const;
 
 private:
     bool compareTags(const Tag&, Tag*) const;

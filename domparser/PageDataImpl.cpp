@@ -281,3 +281,12 @@ void PageDataImpl::removeTag()
         --m_CurrentTag;
     }
 }
+
+std::string PageDataImpl::getTagName() const
+{
+    if (!m_Data.empty())
+    {
+        return m_Data[m_CurrentTag].getTagName();
+    }
+    return {};
+}
