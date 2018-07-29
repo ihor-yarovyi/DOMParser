@@ -10,32 +10,36 @@ class IPageData
 {
 public:
     IPageData() = default;
-    ~IPageData() = default;
+    virtual ~IPageData() = default;
 
-    virtual std::vector<Tag> getPageData(const std::string&) const = 0;
+    virtual size_t getNumberOfTags() const = 0;
+    virtual bool setCurrentTag(size_t) = 0;
     // Navigation
     virtual Tag* first() = 0;
     virtual Tag* last() = 0;
-    virtual Tag* next(Tag*) = 0;
-    virtual Tag* prev(Tag*) = 0;
-    virtual Tag* parent(Tag*) = 0;
-    virtual std::vector<Tag*> children(Tag*) = 0;
-    virtual std::vector<Tag*> sibling(Tag*) = 0;
+    virtual Tag* next() = 0;
+    virtual Tag* prev() = 0;
+    virtual Tag* parent() const = 0;
+    virtual Tag* current() = 0;
+    virtual std::vector<Tag*> children() const = 0;
+    virtual std::vector<Tag*> siblings() const = 0;
     // Modification
-    virtual bool insertAttribute(Tag*, const std::string&, const std::string&) = 0; // |
-    virtual bool changeAttribute(Tag*, const std::string&, const std::string&) = 0; // |> tag, attribute name, attribute value
-    virtual bool removeAttribute(Tag*, const std::string&, const std::string&) = 0; // |
-    virtual bool removeTag(Tag*) = 0;
-    virtual void pushBack(Tag*) = 0;
-    virtual void pushFront(Tag*) = 0;
-    virtual void pushBefore(Tag*, Tag*) = 0;
-    virtual void pushAfter(Tag*, Tag*) = 0;
-    virtual void changeContent(Tag*) = 0;
-    virtual void removeContent(Tag*) = 0;
-    // Get value of DOM element
-    virtual std::string getTagName(Tag*) = 0;
-    virtual std::string getTagContent(Tag*) = 0;
-    virtual std::string getAttributeValue(Tag*, const std::string&) = 0;
+    virtual bool insertAttribute(const std::string&, const std::string&) = 0;
+    virtual bool changeAttribute(const std::string&, const std::string&, const std::string&, const std::string&) = 0;
+    virtual bool removeAttribute(const std::string&, const std::string&) = 0;
+    virtual void removeTag() = 0; // Remove current tag
+    virtual void pushBack(const Tag&) = 0;
+    virtual void pushFront(const Tag&) = 0;
+    virtual bool pushBefore(const Tag&, const Tag&) = 0;
+    virtual bool pushBefore(size_t, const Tag&) = 0;
+    virtual bool pushAfter(const Tag&, const Tag&) = 0;
+    virtual bool pushAfter(size_t, const Tag&) = 0;
+    virtual bool changeContent(const std::string&) = 0;
+    virtual bool removeContent() = 0;
+//    // Get value of DOM element
+    virtual std::string getTagName() const = 0;
+    virtual std::string getTagContent() const = 0;
+    virtual std::string getAttributeValue(const std::string&) const = 0;
 };
 
 #endif //DOMPARSER_IPAGEDATA_H
