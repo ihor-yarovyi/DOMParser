@@ -37,7 +37,7 @@ namespace
 
 TEST(MainParserTest, CheckTagChildren)
 {
-    ProcessPage processPage;
+    ProcessPage processPage("index.html");
     processPage.setSourceWebPage(inputData);
     processPage.process();
     std::vector<Tag> pageData = processPage.getPageData();
@@ -59,7 +59,7 @@ TEST(MainParserTest, CheckTagChildren)
 
 TEST(MainParserTest, CheckTagParent)
 {
-    ProcessPage processPage;
+    ProcessPage processPage("index.html");
     processPage.setSourceWebPage(inputData);
     processPage.process();
     std::vector<Tag> pageData = processPage.getPageData();
@@ -74,7 +74,7 @@ TEST(MainParserTest, CheckTagParent)
 
 TEST(MainParserTest, CheckTagAttributes)
 {
-    ProcessPage processPage;
+    ProcessPage processPage("index.html");
     processPage.setSourceWebPage(inputData);
     processPage.process();
     std::vector<Tag> pageData = processPage.getPageData();
