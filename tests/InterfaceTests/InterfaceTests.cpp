@@ -129,6 +129,39 @@ TEST(ModificationTest, ChangeAttribute)
     EXPECT_EQ(pageData->current()->getAttributeValueTag().at(0), "10");
 }
 
+TEST(ModificationTest, ChangeAttribute_NoNeedAttribute)
+{
+    std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
+    std::unique_ptr<IPageData> pageData(ptr->createPageData("index.html"));
+    pageData->setCurrentTag(6);
+
+    EXPECT_EQ(pageData->current()->getAttributeTag().at(0), "class");
+    EXPECT_EQ(pageData->current()->getAttributeValueTag().at(0), "nameCl");
+    EXPECT_FALSE(pageData->changeAttribute("id", "nameCl", "size", "10"));
+}
+
+TEST(ModificationTest, ChangeAttribute_NoNeedAttributeValue)
+{
+    std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
+    std::unique_ptr<IPageData> pageData(ptr->createPageData("index.html"));
+    pageData->setCurrentTag(6);
+
+    EXPECT_EQ(pageData->current()->getAttributeTag().at(0), "class");
+    EXPECT_EQ(pageData->current()->getAttributeValueTag().at(0), "nameCl");
+    EXPECT_FALSE(pageData->changeAttribute("class", "name", "size", "10"));
+}
+
+TEST(ModificationTest, ChangeAttribute_NoNeedAttributeWithNeedValue)
+{
+    std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
+    std::unique_ptr<IPageData> pageData(ptr->createPageData("index.html"));
+    pageData->setCurrentTag(9);
+
+    EXPECT_EQ(pageData->current()->getAttributeTag().at(0), "name");
+    EXPECT_EQ(pageData->current()->getAttributeValueTag().at(0), "nameI");
+    EXPECT_FALSE(pageData->changeAttribute("name", "2", "size", "10"));
+}
+
 TEST(ModificationTest, RemoveAttribute)
 {
     std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
