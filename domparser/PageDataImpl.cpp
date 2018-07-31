@@ -67,7 +67,7 @@ Tag* PageDataImpl::next()
 
 Tag* PageDataImpl::prev()
 {
-    if (m_CurrentTag - 1 >= 0)
+    if (static_cast<int>(m_CurrentTag) - 1 >= 0)
     {
         return &m_Data[--m_CurrentTag];
     }
@@ -104,25 +104,28 @@ std::vector<Tag*> PageDataImpl::children() const
 std::vector<Tag*> PageDataImpl::siblings() const
 {
     std::vector<Tag*> result {};
-    auto parent = m_Data[m_CurrentTag].getParent();
-    auto position = std::find_if(m_Data.begin(), m_Data.end(),
-                                 [&parent](const Tag& tag)
-                                 {
-                                     return tag.getTagName() == parent->getTagName() &&
-                                            tag.getParent() == parent->getParent() &&
-                                            tag.getAttributeTag() == parent->getAttributeTag() &&
-                                            tag.getAttributeValueTag() == parent->getAttributeValueTag() &&
-                                            tag.getContent() == parent->getContent();
-                                 });
-
-    if (parent != nullptr)
+    if (!m_Data.empty())
     {
-        std::vector<Tag*> children = position->getChildren();
-        for (const auto& i : children)
+        auto parent = m_Data[m_CurrentTag].getParent();
+        auto position = std::find_if(m_Data.begin(), m_Data.end(),
+                                     [&parent](const Tag &tag)
+                                     {
+                                         return tag.getTagName() == parent->getTagName() &&
+                                                tag.getParent() == parent->getParent() &&
+                                                tag.getAttributeTag() == parent->getAttributeTag() &&
+                                                tag.getAttributeValueTag() == parent->getAttributeValueTag() &&
+                                                tag.getContent() == parent->getContent();
+                                     });
+
+        if (parent != nullptr)
         {
-            if (!compareTags(m_Data[m_CurrentTag], i))
+            std::vector<Tag *> children = position->getChildren();
+            for (const auto &i : children)
             {
-                result.emplace_back(i);
+                if (!compareTags(m_Data[m_CurrentTag], i))
+                {
+                    result.emplace_back(i);
+                }
             }
         }
     }
