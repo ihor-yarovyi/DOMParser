@@ -15,6 +15,16 @@ TEST(TestNumberOfTags, NumberOfTags)
     EXPECT_EQ(pageData->getNumberOfTags(), 10);
 }
 
+TEST(TestCurrentTagNumber, CurrentTagNumber)
+{
+    std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
+    std::unique_ptr<IPageData> pageData(ptr->createPageData("index.html"));
+
+    pageData->setCurrentTag(5);
+
+    EXPECT_EQ(pageData->getCurrentTagNumber(), 5);
+}
+
 TEST(NavigationTest, Valid)
 {
     std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
@@ -30,7 +40,7 @@ TEST(NavigationTest, Children)
 {
     std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
     std::unique_ptr<IPageData> pageData(ptr->createPageData("index.html"));
-    auto children = pageData->first()->getChildren();
+    auto children = pageData->children();
 
     EXPECT_EQ(children.size(), 4);
     EXPECT_EQ(children[0]->getTagName(), "script");
