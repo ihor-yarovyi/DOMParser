@@ -35,6 +35,7 @@ TEST(EmptyFileTest, EmptyFile)
     EXPECT_FALSE(pageData->removeAttribute("", ""));
     EXPECT_FALSE(pageData->changeContent(""));
     EXPECT_FALSE(pageData->removeContent());
+    EXPECT_FALSE(pageData->removeTag());
 }
 
 TEST(TestNumberOfTags, NumberOfTags)
