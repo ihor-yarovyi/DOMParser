@@ -6,6 +6,13 @@
 
 #include <memory>
 
+TEST(CreateObjectTest, CreateObject)
+{
+    std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
+    std::unique_ptr<IPageData> pageData(ptr->createPageData(""));
+
+    EXPECT_EQ(pageData, nullptr);
+}
 
 TEST(TestNumberOfTags, NumberOfTags)
 {
