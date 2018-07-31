@@ -325,6 +325,43 @@ TEST(ModificationTest, PushAfterIndex)
     EXPECT_EQ(pageData->getNumberOfTags(), 11);
 }
 
+TEST(ModificationTest, PushAfterIndex2)
+{
+    std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
+    std::unique_ptr<IPageData> pageData(ptr->createPageData("index.html"));
+    std::unique_ptr<Tag> tag(new Tag);
+    tag->setTagName("div1");
+
+    EXPECT_EQ(pageData->current()->getTagName(), "html");
+    EXPECT_EQ(pageData->getNumberOfTags(), 10);
+
+    pageData->pushAfter(0, *tag.get());
+
+    EXPECT_EQ(pageData->first()->getTagName(), "html");
+    EXPECT_EQ(pageData->current()->getTagName(), "html");
+    EXPECT_EQ(pageData->next()->getTagName(), "div1");
+    EXPECT_EQ(pageData->getNumberOfTags(), 11);
+}
+
+TEST(ModificationTest, PushAfterIndex3)
+{
+    std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
+    std::unique_ptr<IPageData> pageData(ptr->createPageData("index.html"));
+    std::unique_ptr<Tag> tag(new Tag);
+    tag->setTagName("div1");
+    pageData->setCurrentTag(9);
+
+    EXPECT_EQ(pageData->current()->getTagName(), "i");
+    EXPECT_EQ(pageData->getNumberOfTags(), 10);
+
+    pageData->pushAfter(9, *tag.get());
+
+    EXPECT_EQ(pageData->current()->getTagName(), "i");
+    EXPECT_EQ(pageData->next()->getTagName(), "div1");
+    EXPECT_EQ(pageData->last()->getTagName(), "div1");
+    EXPECT_EQ(pageData->getNumberOfTags(), 11);
+}
+
 TEST(ModificationTest, ChangeContent)
 {
     std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
