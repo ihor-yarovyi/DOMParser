@@ -14,6 +14,29 @@ TEST(CreateObjectTest, CreateObject)
     EXPECT_EQ(pageData, nullptr);
 }
 
+TEST(EmptyFileTest, EmptyFile)
+{
+    std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
+    std::unique_ptr<IPageData> pageData(ptr->createPageData("index1.html"));
+
+    EXPECT_EQ(pageData->getNumberOfTags(), 0);
+    EXPECT_EQ(pageData->first(), nullptr);
+    EXPECT_EQ(pageData->last(), nullptr);
+    EXPECT_EQ(pageData->next(), nullptr);
+    EXPECT_EQ(pageData->prev(), nullptr);
+    EXPECT_EQ(pageData->parent(), nullptr);
+    EXPECT_EQ(pageData->current(), nullptr);
+    EXPECT_TRUE(pageData->children().empty());
+    EXPECT_TRUE(pageData->siblings().empty());
+    EXPECT_TRUE(pageData->getTagContent().empty());
+    EXPECT_TRUE(pageData->getAttributeValue("").empty());
+    EXPECT_FALSE(pageData->insertAttribute("", ""));
+    EXPECT_FALSE(pageData->changeAttribute("", "", "", ""));;
+    EXPECT_FALSE(pageData->removeAttribute("", ""));
+    EXPECT_FALSE(pageData->changeContent(""));
+    EXPECT_FALSE(pageData->removeContent());
+}
+
 TEST(TestNumberOfTags, NumberOfTags)
 {
     std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
