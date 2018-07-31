@@ -24,6 +24,11 @@ bool PageDataImpl::setCurrentTag(size_t index)
     return false;
 }
 
+size_t PageDataImpl::getCurrentTagNumber() const
+{
+    return m_CurrentTag;
+}
+
 bool PageDataImpl::compareTags(const Tag& lTag, Tag* rTag) const
 {
     return lTag.getTagName() == rTag->getTagName() &&

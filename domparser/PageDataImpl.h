@@ -12,6 +12,7 @@ public:
 
     virtual size_t getNumberOfTags() const;
     virtual bool setCurrentTag(size_t);
+    virtual size_t getCurrentTagNumber() const;
     // Navigation
     virtual Tag* first();
     virtual Tag* last();
