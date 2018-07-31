@@ -28,7 +28,7 @@ public:
     virtual bool insertAttribute(const std::string&, const std::string&) = 0;
     virtual bool changeAttribute(const std::string&, const std::string&, const std::string&, const std::string&) = 0;
     virtual bool removeAttribute(const std::string&, const std::string&) = 0;
-    virtual void removeTag() = 0; // Remove current tag
+    virtual bool removeTag() = 0; // Remove current tag
     virtual void pushBack(const Tag&) = 0;
     virtual void pushFront(const Tag&) = 0;
     virtual bool pushBefore(const Tag&, const Tag&) = 0;
