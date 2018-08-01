@@ -73,7 +73,7 @@ std::vector<Tag> ProcessPage::processHelper(const std::string& input, std::vecto
 
             tag->setParent(tagPtr);
             
-            if (tagPtr != nullptr)
+            if (tagPtr != nullptr && !pageData.empty())
             {
                 auto position = std::find(pageData.begin(), pageData.end(), tagPtr);
                 position->setChildren(tag);
