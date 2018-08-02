@@ -562,6 +562,16 @@ TEST(InterfaceTest, SelectDiv)
     EXPECT_EQ(pageData->current()->getAttributeValueTag().size(), 1);
 }
 
+TEST(InterfaceTest, SelectTagWithAttribute)
+{
+    std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
+    std::unique_ptr<IPageData> pageData(ptr->createPageData("index.html", "[name]"));
+
+    EXPECT_EQ(pageData->getNumberOfTags(), 2);
+    EXPECT_EQ(pageData->first()->getTagName(), "p");
+    EXPECT_EQ(pageData->last()->getTagName(), "i");
+}
+
 int main(int argc, char** argv)
 {
     testing::InitGoogleTest(&argc, argv);
