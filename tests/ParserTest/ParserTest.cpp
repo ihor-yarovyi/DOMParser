@@ -87,7 +87,7 @@ TEST(MainParserTest, CheckTagAttributes)
     EXPECT_EQ(pageData[1].getTagName(), "script");
     EXPECT_EQ(attributeScript[0], "language");
     EXPECT_EQ(attributeScriptValue[0], "javascript");
-    EXPECT_EQ(attributeI[1], "size ");
+    EXPECT_EQ(attributeI[1], "size");
     EXPECT_EQ(attributeIValue[1], "2");
 }
 
@@ -119,8 +119,8 @@ TEST(ParserAttribute, ValidCase)
     std::unique_ptr<BaseParser> ptr(new AttributeParser(inputData));
     std::vector<std::string> expectResult;
     expectResult.emplace_back("class");
-    expectResult.emplace_back("with ");
-    expectResult.emplace_back("size ");
+    expectResult.emplace_back("with");
+    expectResult.emplace_back("size");
 
     std::vector<DataParser> result = ptr->parse();
 
