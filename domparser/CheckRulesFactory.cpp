@@ -21,11 +21,11 @@ CheckRulesFactory* CheckRulesFactory::createCheckRulesFactory(const std::string&
     regexValue.emplace_back(R"((\[([\w]+)=\'([\w]+)\'\]))");
     regexValue.emplace_back(R"((\[([\w]+)\$\=\'(\.[\w]+)\'\]))");
     regexValue.emplace_back(R"((\[([\w]+)\!\=\'([\w\.+]+)\'\]))");
-    regexValue.emplace_back(R"((\[([\w]+)\^\=\'([\w]+)\'\]))");
-    regexValue.emplace_back(R"((\[([\w]+)\*\=\'([\w]+)\'\]))");
-    regexValue.emplace_back(R"(^(\[([\w]+)\=\"([\w]+)\"\]))");
-    regexValue.emplace_back(R"((^(\w+)\[([\w]+)\=\"([\w]+)\"\])$)");
-    regexValue.emplace_back(R"(^(\w+)(\[([\w]+)\=\"([\w]+)\"\])(\[([\w]+)\=\"([\w]+)\"\])$)");
+    regexValue.emplace_back(R"((\[([\w]+)\^\=\'([\w.]+)\'\]))");
+    regexValue.emplace_back(R"((\[([\w]+)\*\=\'([\w.]+)\'\]))");
+    regexValue.emplace_back(R"(^(\[([\w]+)\=\"([\w.]+)\"\]))");
+    regexValue.emplace_back(R"((^(\w+)\[([\w]+)\=\"([\w.]+)\"\])$)");
+    regexValue.emplace_back(R"(^(\w+)(\[([\w]+)\=\"([\w.]+)\"\])(\[([\w]+)\=\"([\w.]+)\"\])$)");
     regexValue.emplace_back(R"(^(\w+)\s*\>\s*(\w+)$)");
 
     std::cmatch cm;
