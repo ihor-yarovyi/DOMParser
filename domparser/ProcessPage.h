@@ -22,7 +22,7 @@ public:
 
 private:
     void processInputPageHelper(const std::string&);
-    std::vector<Tag> processHelper(const std::string&, std::vector<Tag>&, Tag*);
+    void processHelper(const std::string&, std::vector<Tag>&, Tag*);
 
 private:
     std::string m_InputPage {};

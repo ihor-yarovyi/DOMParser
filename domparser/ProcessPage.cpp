@@ -41,30 +41,24 @@ void ProcessPage::process()
     }
 }
 
-std::vector<Tag> ProcessPage::processHelper(const std::string& input, std::vector<Tag>& pageData, Tag* tagPtr)
+void ProcessPage::processHelper(const std::string& input, std::vector<Tag>& pageData, Tag* tagPtr)
 {
     if (!input.empty())
     {
-        std::unique_ptr<BaseParser> basePtr(new ContentParser(input));
-        std::vector<DataParser> tempVec = basePtr->parse();
+        auto tempVec = ContentParser(input).parse();
 
         for (const auto& i : tempVec)
         {
             Tag* tag = new Tag;
             tag->setTagName(i.getTagName());
             tag->setContent(i.getContent());
-            basePtr.reset();
-            basePtr = std::make_unique<AttributeParser>(i.getNotParsingAttributes());
-            auto attributes = basePtr->parse();
+            auto attributes = AttributeParser(i.getNotParsingAttributes()).parse();
 
             for (const auto& attributesIter : attributes)
             {
                 tag->setAttributeTag(attributesIter.getAttribute());
             }
-
-            basePtr.reset();
-            basePtr = std::make_unique<AttibuteValueParser>(i.getNotParsingAttributes());
-            auto attributesValue = basePtr->parse();
+            auto attributesValue = AttibuteValueParser(i.getNotParsingAttributes()).parse();
 
             for (const auto& attributesValueIter : attributesValue)
             {
@@ -76,7 +70,10 @@ std::vector<Tag> ProcessPage::processHelper(const std::string& input, std::vecto
             if (tagPtr != nullptr && !pageData.empty())
             {
                 auto position = std::find(pageData.begin(), pageData.end(), tagPtr);
-                position->setChildren(tag);
+                if (position != pageData.end())
+                {
+                    position->setChildren(tag);
+                }
             }
 
             if (m_CheckRulePtr->checkRules(tag))
@@ -86,5 +83,4 @@ std::vector<Tag> ProcessPage::processHelper(const std::string& input, std::vecto
             processHelper(i.getContent(), pageData, tag);
         }
     }
-    return pageData;
 }
