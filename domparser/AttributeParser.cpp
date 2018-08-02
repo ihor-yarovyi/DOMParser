@@ -3,7 +3,7 @@
 
 AttributeParser::AttributeParser(const std::string& data)
 : BaseParser(data),
-  m_RegexValue("([\\w]+[\\s]*)=")
+  m_RegexValue("(([\\w]+)[\\s]*)=")
 {
 
 }
@@ -20,7 +20,7 @@ std::vector<DataParser> AttributeParser::parse()
         {
             DataParser dataParser;
             sm = *next;
-            dataParser.setAttribute(sm[1].str());
+            dataParser.setAttribute(sm[2].str());
             result.emplace_back(dataParser);
             ++next;
         }
