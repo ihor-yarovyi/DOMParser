@@ -548,10 +548,10 @@ TEST(GetValue, GetAttributeValue)
     std::unique_ptr<IPageData> pageData(ptr->createPageData("index.html"));
     pageData->setCurrentTag(9);
 
-    EXPECT_EQ(pageData->getAttributeValue("size "), "2");
+    EXPECT_EQ(pageData->getAttributeValue("size"), "2");
 }
 
-TEST(InterfaceTest, SelectDiv)
+TEST(InterfaceRuleTest, SelectDiv)
 {
     std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
     std::unique_ptr<IPageData> pageData(ptr->createPageData("index.html", "div"));
@@ -562,14 +562,105 @@ TEST(InterfaceTest, SelectDiv)
     EXPECT_EQ(pageData->current()->getAttributeValueTag().size(), 1);
 }
 
-TEST(InterfaceTest, SelectTagWithAttribute)
+TEST(InterfaceRuleTest, SelectAllWithAttribute)
 {
     std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
     std::unique_ptr<IPageData> pageData(ptr->createPageData("index.html", "[name]"));
 
+    EXPECT_EQ(pageData->getNumberOfTags(), 3);
+    EXPECT_EQ(pageData->first()->getTagName(), "p");
+    EXPECT_EQ(pageData->next()->getTagName(), "p");
+    EXPECT_EQ(pageData->last()->getTagName(), "i");
+}
+
+TEST(InterfaceRuleTest, SelectAllWithAttributeAndValue)
+{
+    std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
+    std::unique_ptr<IPageData> pageData(ptr->createPageData("index.html", "[class='nameCl']"));
+
+    EXPECT_EQ(pageData->getNumberOfTags(), 1);
+    EXPECT_EQ(pageData->first()->getTagName(), "div");
+}
+
+TEST(InterfaceRuleTest, SelectAllWithEndString)
+{
+    std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
+    std::unique_ptr<IPageData> pageData(ptr->createPageData("index.html", "[background$='.png']"));
+
+    EXPECT_EQ(pageData->getNumberOfTags(), 1);
+    EXPECT_EQ(pageData->first()->getTagName(), "body");
+}
+
+TEST(InterfaceRuleTest, SelectAllNotEqualAttributeValue)
+{
+    std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
+    std::unique_ptr<IPageData> pageData(ptr->createPageData("index.html", "[name!='nameI']"));
+
     EXPECT_EQ(pageData->getNumberOfTags(), 2);
     EXPECT_EQ(pageData->first()->getTagName(), "p");
+    EXPECT_EQ(pageData->first()->getContent(), "Text");
+    EXPECT_EQ(pageData->last()->getTagName(), "p");
+    EXPECT_EQ(pageData->last()->getContent(), "Another text");
+}
+
+TEST(InterfaceRuleTest, SelectAllWithBeginString)
+{
+    std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
+    std::unique_ptr<IPageData> pageData(ptr->createPageData("index.html", "[name^='name']"));
+
+    EXPECT_EQ(pageData->getNumberOfTags(), 3);
+    EXPECT_EQ(pageData->first()->getTagName(), "p");
+    EXPECT_EQ(pageData->next()->getTagName(), "p");
     EXPECT_EQ(pageData->last()->getTagName(), "i");
+}
+
+TEST(InterfaceRuleTest, SelectAllWithPartString)
+{
+    std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
+    std::unique_ptr<IPageData> pageData(ptr->createPageData("index.html", "[name*='am']"));
+
+    EXPECT_EQ(pageData->getNumberOfTags(), 3);
+    EXPECT_EQ(pageData->first()->getTagName(), "p");
+    EXPECT_EQ(pageData->next()->getTagName(), "p");
+    EXPECT_EQ(pageData->last()->getTagName(), "i");
+}
+
+TEST(InterfaceRuleTest, SelectTagsWithMatchingAttributes)
+{
+    std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
+    std::unique_ptr<IPageData> pageData(ptr->createPageData("index.html", "[name=\"nameI\"],[size=\"2\"],[with=\"6\"]"));
+
+    EXPECT_EQ(pageData->getNumberOfTags(), 1);
+    EXPECT_EQ(pageData->first()->getTagName(), "i");
+}
+
+TEST(InterfaceRuleTest, SelectSpecificTagWithSpecifiedAttribute)
+{
+    std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
+    std::unique_ptr<IPageData> pageData(ptr->createPageData("index.html", "p[name=\"nameP\"]"));
+
+    EXPECT_EQ(pageData->getNumberOfTags(), 2);
+    EXPECT_EQ(pageData->first()->getTagName(), "p");
+    EXPECT_EQ(pageData->last()->getTagName(), "p");
+}
+
+TEST(InterfaceRuleTest, SelectChildrenTagWithAttribute)
+{
+    std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
+    std::unique_ptr<IPageData> pageData(ptr->createPageData("index.html", "body[background=\"picture.png\"][size=\"2\"]"));
+
+    EXPECT_EQ(pageData->getNumberOfTags(), 1);
+    EXPECT_EQ(pageData->first()->getTagName(), "i");
+}
+
+TEST(InterfaceRuleTest, SelectChildrenOfTheSpecificTag)
+{
+    std::unique_ptr<IDOMFactory> ptr(new PageDataFactory);
+    std::unique_ptr<IPageData> pageData(ptr->createPageData("index.html", "body > p"));
+
+    EXPECT_EQ(pageData->getNumberOfTags(), 2);
+    EXPECT_EQ(pageData->first()->getTagName(), "p");
+    EXPECT_EQ(pageData->last()->getTagName(), "p");
 }
 
 int main(int argc, char** argv)
