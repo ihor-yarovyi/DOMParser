@@ -1,5 +1,4 @@
 #include "AttributeParser.h"
-#include <iostream>
 
 AttributeParser::AttributeParser(const std::string& data)
 : BaseParser(data),
@@ -27,7 +26,7 @@ std::vector<DataParser> AttributeParser::parse()
     }
     catch (std::regex_error& e)
     {
-        std::cout << e.what() << std::endl;
+        throw;
     }
 
     return result;
