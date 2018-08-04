@@ -9,8 +9,8 @@ class SelectAllRule : public CheckRulesFactory
 {
 public:
     SelectAllRule() = default;
+    virtual ~SelectAllRule() = default;
     virtual bool checkRules(Tag*) const;
 };
-
 
 #endif //DOMPARSER_SELECTALLRULE_H

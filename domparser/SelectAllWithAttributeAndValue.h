@@ -7,6 +7,7 @@ class SelectAllWithAttributeAndValue : public CheckRulesFactory
 {
 public:
     explicit SelectAllWithAttributeAndValue(const std::cmatch&);
+    virtual ~SelectAllWithAttributeAndValue() = default;
     virtual bool checkRules(Tag*) const;
 
 private:

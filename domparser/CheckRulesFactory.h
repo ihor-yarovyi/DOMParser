@@ -10,8 +10,7 @@ class CheckRulesFactory
 {
 public:
     CheckRulesFactory() = default;
-    ~CheckRulesFactory() = default;
-
+    virtual ~CheckRulesFactory() = default;
     virtual bool checkRules(Tag*) const = 0;
     static CheckRulesFactory* createCheckRulesFactory(const std::string&);
 

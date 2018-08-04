@@ -7,6 +7,7 @@ class SelectChildrenTagWithAttribute : public CheckRulesFactory
 {
 public:
     explicit SelectChildrenTagWithAttribute(const std::cmatch&);
+    virtual ~SelectChildrenTagWithAttribute() = default;
     virtual bool checkRules(Tag*) const;
 
 private:

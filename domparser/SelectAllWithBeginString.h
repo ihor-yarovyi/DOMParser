@@ -7,6 +7,7 @@ class SelectAllWithBeginString : public CheckRulesFactory
 {
 public:
     explicit SelectAllWithBeginString(const std::cmatch&);
+    virtual ~SelectAllWithBeginString() = default;
     virtual bool checkRules(Tag*) const;
 
 private:

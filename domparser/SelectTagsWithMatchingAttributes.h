@@ -7,6 +7,7 @@ class SelectTagsWithMatchingAttributes : public CheckRulesFactory
 {
 public:
     SelectTagsWithMatchingAttributes(const std::string&, const std::string&);
+    virtual ~SelectTagsWithMatchingAttributes() = default;
     virtual bool checkRules(Tag*) const;
 
 private:
