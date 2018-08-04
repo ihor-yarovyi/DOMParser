@@ -1,4 +1,5 @@
-#pragma once
+#ifndef DOMPARSER_TAG_H
+#define DOMPARSER_TAG_H
 #include <string>
 #include <vector>
 
@@ -39,7 +40,8 @@ private:
 	std::vector<Tag*> m_Childrens {};
 	std::vector<std::string> m_AttributeTeg {};
 	std::vector<std::string> m_AttributeValueTeg {};
-
 };
+
+#endif //DOMPARSER_TAG_H
 
 
