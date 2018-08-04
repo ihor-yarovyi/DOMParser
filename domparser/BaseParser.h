@@ -13,9 +13,7 @@ public:
     : userData(str)
     {}
     virtual ~BaseParser() = default;
-
     virtual std::vector<DataParser> parse() = 0;
-
     void setData(const std::string& str)
     {
         userData = str;

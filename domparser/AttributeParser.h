@@ -7,9 +7,8 @@
 class AttributeParser : public BaseParser
 {
 public:
-    AttributeParser(const std::string&);
+    explicit AttributeParser(const std::string&);
     virtual ~AttributeParser() = default;
-
     virtual std::vector<DataParser> parse();
 
 private:

@@ -28,7 +28,6 @@ std::vector<DataParser> AttributeParser::parse()
     {
         throw;
     }
-
     return result;
 }
 

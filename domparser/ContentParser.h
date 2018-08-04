@@ -7,9 +7,8 @@
 class ContentParser : public BaseParser
 {
 public:
-    ContentParser(const std::string&);
+    explicit ContentParser(const std::string&);
     virtual ~ContentParser() = default;
-
     virtual std::vector<DataParser> parse();
 
 private:
