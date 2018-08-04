@@ -5,6 +5,7 @@
 #include "TagNameParser.h"
 
 #include <fstream>
+#include <stdexcept>
 
 ProcessPage::ProcessPage(const std::string& pathToPage, const std::string& rule)
 : m_CheckRulePtr(CheckRulesFactory::createCheckRulesFactory(rule))
@@ -35,10 +36,11 @@ std::vector<Tag> ProcessPage::getPageData() const
 
 void ProcessPage::process()
 {
-    if (m_CheckRulePtr != nullptr)
+    if (m_CheckRulePtr == nullptr)
     {
-        processHelper(m_InputPage, m_PageData, nullptr);
+        throw std::logic_error("Rule is incorrect");
     }
+    processHelper(m_InputPage, m_PageData, nullptr);
 }
 
 void ProcessPage::processHelper(const std::string& input, std::vector<Tag>& pageData, Tag* tagPtr)
