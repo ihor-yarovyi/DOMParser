@@ -10,35 +10,9 @@
 
 #include <memory>
 
-namespace
-{
-    std::string inputData("<html>\n"
-                          "    <script language=\"javascript\">\n"
-                          "        alert(\"Hi there, and welcome.\")\n"
-                          "    </script>\n"
-                          "    <style>\n"
-                          "        body {background-color: powderblue;}\n"
-                          "        h1   {color: blue;}\n"
-                          "        p    {color: red;}\n"
-                          "    </style>\n"
-                          "     <head>\n"
-                          "        <caption>Hello!</caption>\n"
-                          "    </head>\n"
-                          "    <body>\n"
-                          "        <div class=\"nameCl\">\n"
-                          "            Block Content\n"
-                          "        </div>\n"
-                          "        <p>Text</p>\n"
-                          "        <p>Another text</p>\n"
-                          "        <i name=\"nameI\" size = '2' with =6>Content</i>\n"
-                          "    </body>\n"
-                          "</html>");
-}
-
 TEST(MainParserTest, CheckTagChildren)
 {
     ProcessPage processPage("index.html");
-    processPage.setSourceWebPage(inputData);
     processPage.process();
     std::vector<Tag> pageData = processPage.getPageData();
 
@@ -60,7 +34,6 @@ TEST(MainParserTest, CheckTagChildren)
 TEST(MainParserTest, CheckTagParent)
 {
     ProcessPage processPage("index.html");
-    processPage.setSourceWebPage(inputData);
     processPage.process();
     std::vector<Tag> pageData = processPage.getPageData();
 
@@ -75,7 +48,6 @@ TEST(MainParserTest, CheckTagParent)
 TEST(MainParserTest, CheckTagAttributes)
 {
     ProcessPage processPage("index.html");
-    processPage.setSourceWebPage(inputData);
     processPage.process();
     std::vector<Tag> pageData = processPage.getPageData();
 
@@ -89,6 +61,12 @@ TEST(MainParserTest, CheckTagAttributes)
     EXPECT_EQ(attributeScriptValue[0], "javascript");
     EXPECT_EQ(attributeI[1], "size");
     EXPECT_EQ(attributeIValue[1], "2");
+}
+
+TEST(MainParserTest, IncorrectRule)
+{
+    ProcessPage processPage("index.html", "[*=$#");
+    EXPECT_THROW(processPage.process(), std::logic_error);
 }
 
 TEST(ParserNameTeg, ValidCase)
