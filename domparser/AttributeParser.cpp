@@ -24,7 +24,7 @@ std::vector<DataParser> AttributeParser::parse()
             ++next;
         }
     }
-    catch (std::regex_error& e)
+    catch (std::regex_error&)
     {
         throw;
     }

@@ -16,8 +16,8 @@ std::vector<DataParser> ContentParser::parse()
     {
         std::sregex_iterator next(userData.begin(), userData.end(), m_RegexValue);
         std::sregex_iterator end;
-
         std::smatch sm;
+
         while (next != end)
         {
             sm = *next;
@@ -27,9 +27,9 @@ std::vector<DataParser> ContentParser::parse()
             ++next;
         }
     }
-    catch (const std::regex_error& e)
+    catch (const std::regex_error&)
     {
-        std::cout << e.what() << std::endl;
+        throw;
     }
     return result;
 }

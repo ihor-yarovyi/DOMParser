@@ -38,9 +38,9 @@ bool SelectTagsWithMatchingAttributes::checkRules(Tag* tag) const
                 }
                 return true;
             }
-            catch (const std::regex_error& e)
+            catch (const std::regex_error&)
             {
-                // TODO: Make handler of the exception
+                throw;
             }
         }
     }

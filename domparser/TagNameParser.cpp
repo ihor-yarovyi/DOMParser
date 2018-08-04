@@ -1,5 +1,4 @@
 #include "TagNameParser.h"
-#include <iostream>
 
 TagNameParser::TagNameParser(const std::string& data)
 : BaseParser(data),
@@ -20,9 +19,9 @@ std::vector<DataParser> TagNameParser::parse()
         dataParser.setTagName(value[1].str());
         result.emplace_back(dataParser);
     }
-    catch (const std::regex_error& e)
+    catch (const std::regex_error&)
     {
-        std::cout << e.what() << std::endl;
+        throw;
     }
     return result;
 }
