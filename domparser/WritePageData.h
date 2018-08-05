@@ -2,19 +2,26 @@
 #define DOMPARSER_WRITEPAGEDATA_H
 
 #include "IPageData.h"
+#include "Tag.h"
+
 #include <memory>
+#include <string>
+#include <fstream>
 
 class WritePageData
 {
 public:
-    explicit WritePageData(std::unique_ptr<IPageData>);
+    explicit WritePageData(std::shared_ptr<IPageData>);
     ~WritePageData() = default;
-    void setPageData(std::unique_ptr<IPageData>);
+    void setPageData(std::shared_ptr<IPageData>);
     void writeToFile();
 
 private:
-    std::unique_ptr<IPageData> m_PageData;
-};
+    void writeToFileHelper(std::shared_ptr<IPageData>);
 
+private:
+    std::shared_ptr<IPageData> m_PageData;
+    std::ofstream m_FileOutput;
+};
 
 #endif //DOMPARSER_WRITEPAGEDATA_H
