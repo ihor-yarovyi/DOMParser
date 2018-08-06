@@ -1,8 +1,9 @@
 #include "WritePageData.h"
+#include <stdexcept>
 
-WritePageData::WritePageData(std::shared_ptr<IPageData> ptr)
+WritePageData::WritePageData(std::shared_ptr<IPageData> ptr, const std::string& fileName)
 : m_PageData(ptr),
-  m_FileOutput("pagedata.html", std::ios::out)
+  m_FileOutput(fileName, std::ios::out)
 {
 
 }
@@ -18,10 +19,12 @@ void WritePageData::setPageData(std::shared_ptr<IPageData> ptr)
 
 void WritePageData::writeToFile()
 {
-    if (m_PageData != nullptr)
+    if (m_PageData == nullptr)
     {
-        writeToFileHelper(m_PageData);
+        throw std::logic_error("Page data is null");
     }
+    writeToFileHelper(m_PageData);
+    m_FileOutput.close();
 }
 
 void WritePageData::writeToFileHelper(std::shared_ptr<IPageData> pageData)

@@ -11,7 +11,7 @@
 class WritePageData
 {
 public:
-    explicit WritePageData(std::shared_ptr<IPageData>);
+    WritePageData(std::shared_ptr<IPageData>, const std::string& = "pagedata.html");
     ~WritePageData() = default;
     void setPageData(std::shared_ptr<IPageData>);
     void writeToFile();
