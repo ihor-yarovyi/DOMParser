@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.10)
 
-project(WritePageDataTests)
+project(WritePageDataTests VERSION 1)
 
 add_executable(WritePageDataTests WritePageDataTests.cpp)
 

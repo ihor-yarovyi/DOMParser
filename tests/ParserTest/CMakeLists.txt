@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.10)
 
-project(ParserTest)
+project(ParserTest VERSION 1)
 
 add_executable(ParserTest ParserTest.cpp)
 
