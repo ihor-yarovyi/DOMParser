@@ -1,9 +1,9 @@
 After that, you built all tests, copy data that below and paste in the file and name him as "index.html". 
 Put on this file in all bin directories all tests.
 When you did run the tests, you will see, those tests are passed.
-Data for the copy (all that is inside 'code' tag):
+Data for the copy (all that is inside 'pre' tag):
 
-<code>
+<pre>
 <html>
     <script language="javascript">
         alert("Hi there, and welcome.")
@@ -25,4 +25,4 @@ Data for the copy (all that is inside 'code' tag):
         <i name="nameI" size = '2' with =6>Content</i>
     </body>
 </html>
-</code>
+</pre>
