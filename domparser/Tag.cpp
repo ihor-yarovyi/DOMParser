@@ -15,15 +15,15 @@ Tag::~Tag()
 bool Tag::operator==(Tag* right)
 {
 	return m_Name == right->m_Name && m_Parent == right->m_Parent
-		   && m_Content == right->m_Content && m_AttributeTeg == right->m_AttributeTeg
-		   && m_AttributeValueTeg == right->m_AttributeValueTeg;
+		   && m_Content == right->m_Content && m_AttributeTag == right->m_AttributeTag
+		   && m_AttributeValueTag == right->m_AttributeValueTag;
 }
 
 bool Tag::operator==(const Tag& right)
 {
     return m_Name == right.m_Name && m_Parent == right.m_Parent
-           && m_Content == right.m_Content && m_AttributeTeg == right.m_AttributeTeg
-           && m_AttributeValueTeg == right.m_AttributeValueTeg;
+           && m_Content == right.m_Content && m_AttributeTag == right.m_AttributeTag
+           && m_AttributeValueTag == right.m_AttributeValueTag;
 }
 
 void Tag::setTagName(const std::string& tagName)
@@ -73,30 +73,30 @@ std::vector<Tag*> Tag::getChildren() const
 
 void Tag::setAttributeTag(const std::string &data)
 {
-    m_AttributeTeg.emplace_back(data);
+    m_AttributeTag.emplace_back(data);
 }
 
 std::vector<std::string> Tag::getAttributeTag() const
 {
-    return m_AttributeTeg;
+    return m_AttributeTag;
 }
 
 std::vector<std::string>& Tag::getAttributeTag()
 {
-	return m_AttributeTeg;
+	return m_AttributeTag;
 }
 
 void Tag::setAttributeValueTag(const std::string &data)
 {
-    m_AttributeValueTeg.emplace_back(data);
+    m_AttributeValueTag.emplace_back(data);
 }
 
 std::vector<std::string> Tag::getAttributeValueTag() const
 {
-    return m_AttributeValueTeg;
+    return m_AttributeValueTag;
 }
 
 std::vector<std::string>& Tag::getAttributeValueTag()
 {
-	return m_AttributeValueTeg;
+	return m_AttributeValueTag;
 }

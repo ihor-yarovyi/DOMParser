@@ -38,8 +38,8 @@ private:
 	Tag* m_Parent;
 	std::string m_Content {};
 	std::vector<Tag*> m_Childrens {};
-	std::vector<std::string> m_AttributeTeg {};
-	std::vector<std::string> m_AttributeValueTeg {};
+	std::vector<std::string> m_AttributeTag {};
+	std::vector<std::string> m_AttributeValueTag {};
 };
 
 #endif //DOMPARSER_TAG_H
