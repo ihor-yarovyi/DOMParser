@@ -31,6 +31,7 @@ Example of a local installation:
 	> Choose 'INSTALL' project and build him
 
 Uninstall library:	
+
 	> Choose 'uninstall' project and build him
 
 ### How to use the library (internally)?
